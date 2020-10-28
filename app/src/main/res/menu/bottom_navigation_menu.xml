@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bot_nav_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_house_24px"
+        android:title="@string/text_label_1"/>
+    <item
+        android:id="@+id/bot_nav_fav"
+        android:enabled="true"
+        android:icon="@drawable/ic_favorite_24px"
+        android:title="@string/text_label_2"/>
+
+    <item
+        android:id="@+id/bot_nav_prof"
+        android:enabled="true"
+        android:icon="@drawable/ic_account_box_24px"
+        android:title="@string/text_label_3"/>
+</menu>

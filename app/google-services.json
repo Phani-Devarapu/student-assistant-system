@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "115696750379",
+    "firebase_url": "https://studentassistant4-9d27f.firebaseio.com",
+    "project_id": "studentassistant4-9d27f",
+    "storage_bucket": "studentassistant4-9d27f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115696750379:android:8f610d325de927c874bf6e",
+        "android_client_info": {
+          "package_name": "com.adrinofast.sa4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115696750379-moe5uvvtj65airm88qofn9skt8rn2qn9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbM6J8NeMXWznazQB5qH1rqikshPX2oZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115696750379-moe5uvvtj65airm88qofn9skt8rn2qn9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

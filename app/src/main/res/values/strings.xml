@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SA4</string>
+    <string name="text_label_1">Home</string>
+    <string name="text_label_2">Wishlist</string>
+    <string name="text_label_3">Account</string>
+
+</resources>
