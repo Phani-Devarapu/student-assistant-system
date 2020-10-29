@@ -12,7 +12,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="367dp"
         android:layout_height="67dp"
-        android:hint="UserName"
+        android:hint="Email"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -22,7 +22,7 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/signup_username"
+            android:id="@+id/signup_email"
             android:layout_width="match_parent"
             android:layout_height="53dp" />
 
@@ -44,9 +44,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signup_password"
-            android:inputType="textPassword"
             android:layout_width="match_parent"
-            android:layout_height="53dp" />
+            android:layout_height="53dp"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -54,7 +54,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="367dp"
         android:layout_height="67dp"
-        android:hint="Email"
+        android:hint="Confirm Password"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -64,31 +64,10 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/signup_email"
-            android:inputType="textEmailAddress"
+            android:id="@+id/signup_confirm_password"
             android:layout_width="match_parent"
-            android:layout_height="56dp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textField9"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="370dp"
-        android:layout_height="67dp"
-        android:hint="Phone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textField"
-        app:layout_constraintVertical_bias="0.316">
-
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/signup_phone"
-            android:inputType="number"
-            android:layout_width="match_parent"
-            android:layout_height="52dp" />
+            android:layout_height="56dp"
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -101,10 +80,10 @@
         app:icon="@drawable/ic_baseline_person_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textField9"
-        app:layout_constraintVertical_bias="0.158" />
+        app:layout_constraintTop_toBottomOf="@+id/textField4"
+        app:layout_constraintVertical_bias="0.057" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

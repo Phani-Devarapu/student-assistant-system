@@ -28,6 +28,7 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
         mAuth = FirebaseAuth.getInstance();
 
 
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
@@ -48,6 +49,7 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
                             selectedFragment = new HomeFragment();
                             break;
                         case R.id.bot_nav_fav:
+                            Log.i("i am","item cliekced");
                             selectedFragment = new FavouriteFragment();
                             break;
                         case R.id.bot_nav_prof:

@@ -12,7 +12,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="367dp"
         android:layout_height="67dp"
-        android:hint="UserName"
+        android:hint="Email"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -57,13 +57,27 @@
         android:layout_width="367dp"
         android:layout_height="68dp"
         android:text="Login"
-        app:icon="@drawable/ic_baseline_person_add_24"
+        app:icon="@drawable/ic_login_black_18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textField2"
         app:layout_constraintVertical_bias="0.085" />
+
+    <Button
+        android:id="@+id/but_forgotPas"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:layout_width="367dp"
+        android:layout_height="68dp"
+        android:text="Forgot password"
+        app:icon="@drawable/ic_lock"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/but_login"
+        app:layout_constraintVertical_bias="0.236" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

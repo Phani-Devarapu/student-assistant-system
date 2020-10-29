@@ -13,7 +13,7 @@
         android:layout_width="367dp"
         android:layout_height="68dp"
         android:text="Login"
-        app:icon="@drawable/ic_baseline_person_add_24"
+        app:icon="@drawable/ic_login_black_18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -43,12 +43,11 @@
         android:layout_height="68dp"
         android:layout_marginBottom="176dp"
         android:text="Skip"
-        app:icon="@drawable/ic_baseline_person_add_24"
+        app:icon="@drawable/ic_arrow_forward_ios_black_18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textField9"
         app:layout_constraintVertical_bias="0.158" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

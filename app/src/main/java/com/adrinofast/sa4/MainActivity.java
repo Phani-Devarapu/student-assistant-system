@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
    private void  redirectToSignUp()
     {
-        Intent intent = new Intent(context, LoginActivity.class);
+        Intent intent = new Intent(context, SignUpActivity.class);
         startActivity(intent);
     }
 

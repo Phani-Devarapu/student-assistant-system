@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     Button but_login;
+    Button but_forpas;
     Context context = this;
 
     EditText text_loginName;
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         text_loginName=findViewById(R.id.login_username);
         text_loginPass = findViewById(R.id.login_password);
         but_login = findViewById(R.id.but_login);
+        but_forpas =findViewById(R.id.but_forgotPas);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -45,6 +47,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 login();
+            }
+        });
+
+        but_forpas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                forgotpassword();
             }
         });
 
@@ -80,5 +89,15 @@ public class LoginActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+    }
+
+
+
+    private  void forgotpassword()
+    {
+
+        Intent intent = new Intent(context, ForgotpasswordActivity.class);
+        startActivity(intent);
+
     }
 }

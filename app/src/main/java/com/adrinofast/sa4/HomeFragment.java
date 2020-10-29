@@ -65,6 +65,8 @@ public class HomeFragment extends Fragment    {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Log.i("inside","The home fragment");
+
         CollectionReference citiesRef = db.collection("Programs");
 
         Program p1 = new Program();
