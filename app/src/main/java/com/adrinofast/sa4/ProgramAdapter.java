@@ -33,11 +33,7 @@ public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHol
         {
              Log.i("in the adapter", p.toString());
         }
-
-
         mPrograms = programs;
-
-
 
     }
 
@@ -56,6 +52,7 @@ public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHol
 
         public TextView nameTextView;
         public TextView programDeptTextView;
+        public TextView gradtextView;
         ConstraintLayout relay_lay;
         MaterialCardView matcard;
 
@@ -67,7 +64,7 @@ public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHol
             super(itemView);
 
             nameTextView = (TextView) itemView.findViewById(R.id.college_name);
-            //IdButton = (Button) itemView.findViewById(R.id.message_button);
+            gradtextView = (TextView)itemView.findViewById(R.id.message_text);
             programDeptTextView = (TextView)itemView.findViewById(R.id.program_dept);
       matcard = itemView.findViewById(R.id.con_lay_eachitem);
 
@@ -84,8 +81,6 @@ public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHol
                     }
                 }
             });
-
-
 
         }
 
@@ -118,10 +113,14 @@ public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHol
 
         // Set item views based on your views and data model
         TextView textView = holder.nameTextView;
-        textView.setText(program.getCollegeName());
+        textView.setText(program.getEngineering());
 
         TextView textView2 = holder.programDeptTextView;
-        textView2.setText(program.getDepartment());
+        textView2.setText(program.getCollegeName());
+
+        TextView textview3 = holder.gradtextView;
+        textview3.setText(program.getLevel());
+
 
 
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {

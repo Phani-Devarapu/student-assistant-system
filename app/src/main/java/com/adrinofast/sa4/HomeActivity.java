@@ -3,6 +3,7 @@ package com.adrinofast.sa4;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 
@@ -26,6 +27,9 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
         //setSupportActionBar(findViewById(R.id.topAppBar));
 
         mAuth = FirebaseAuth.getInstance();
+              Toolbar actionBar = (Toolbar)findViewById(R.id.topAppBar);
+        setSupportActionBar(actionBar);
+        getSupportActionBar().setTitle("Home");
 
 
 

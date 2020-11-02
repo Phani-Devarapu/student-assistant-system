@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
+    <EditText
+        android:id="@+id/login_checker"
+        android:layout_width="322dp"
+        android:layout_height="120dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.397">
+
+    </EditText>
+
     <Button
         android:id="@+id/but_signout"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"

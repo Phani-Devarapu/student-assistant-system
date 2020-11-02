@@ -1,5 +1,6 @@
 package com.adrinofast.sa4;
 
+import android.app.ActionBar;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -16,12 +17,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -41,19 +44,12 @@ public class HomeFragment extends Fragment    {
     List<Program> arryProg;
     SearchView mySearch;
     RecyclerView rvcollges;
-
-
-
-
-
-    //RecyclerView.Adapter rvAdapter  ;
+  //RecyclerView.Adapter rvAdapter  ;
     ProgramAdapter rvAdapter;
-
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
 
 
         return inflater.inflate(R.layout.fragment_home, container, false);
@@ -64,6 +60,9 @@ public class HomeFragment extends Fragment    {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Home");
+
+
 
         Log.i("inside","The home fragment");
 

@@ -20,7 +20,7 @@ public class FavouriteFragment extends Fragment {
     private FirebaseAuth mAuth;
 
 
-    EditText text_loginName;
+
 
     EditText text_loginNameedit;
 
@@ -33,24 +33,13 @@ public class FavouriteFragment extends Fragment {
         View vv = inflater.inflate(R.layout.fragment_favourite, container, false);
 
 
-
-
-
-
-        text_loginName = vv.findViewById(R.id.login_username);
-
-
-        text_loginName.setText("asashajhjhjhjh hasajhsajsh");
-
-        text_loginName.setText("ia ma herre");
-
-
         return inflater.inflate(R.layout.fragment_favourite, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Wishlist");
 
         text_loginNameedit = view.findViewById(R.id.login_edit);
         FirebaseUser user = mAuth.getCurrentUser();
@@ -59,7 +48,7 @@ public class FavouriteFragment extends Fragment {
             Log.i("the is id ", id);
             text_loginNameedit.setText("user signed in ");
         } else {
-            text_loginNameedit.setText("user not signed in ");
+            text_loginNameedit.setText("User not signed in Please Sign In ");
 
         }
  }

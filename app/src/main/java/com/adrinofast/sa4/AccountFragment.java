@@ -2,10 +2,12 @@ package com.adrinofast.sa4;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,7 @@ public class AccountFragment extends Fragment {
 
     Button btn_signout;
     private FirebaseAuth mAuth;
+    EditText text_loginChecker;
 
 
 
@@ -32,9 +35,26 @@ public class AccountFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Account");
 
-
+        text_loginChecker = view.findViewById(R.id.login_checker);
         btn_signout = view.findViewById(R.id.but_signout);
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            String id  = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            Log.i("the is id ", id);
+            text_loginChecker.setText("user signed in ");
+        } else {
+
+            text_loginChecker.setText("User not signed in Please Sign In ");
+            btn_signout.setVisibility(View.GONE);
+
+        }
+
+
+
+
 
         btn_signout.setOnClickListener(new View.OnClickListener() {
             @Override
