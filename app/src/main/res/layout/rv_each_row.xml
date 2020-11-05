@@ -10,38 +10,50 @@
     android:paddingBottom="10dp">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/con_lay_eachitem"
         android:layout_width="match_parent"
-        android:layout_height="149dp"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="0dp"
-        app:cardMaxElevation="3dp"
-        app:cardElevation="2dp"
-        app:contentPadding="10dp"
-        app:contentPaddingBottom="0dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true"
+        android:layout_height="155dp"
         android:clickable="true"
         android:focusable="true"
-        android:id="@+id/con_lay_eachitem"
-        >
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="2dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="10dp"
+        app:contentPaddingBottom="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-           >
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/college_image"
+                android:layout_width="59dp"
+                android:layout_height="49dp"
+                android:scaleType="centerCrop"
+                android:shape="ring"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/college_name"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.183"></ImageView>
 
             <TextView
                 android:id="@+id/college_name"
-                android:layout_width="389dp"
-                android:layout_height="56dp"
+                android:layout_width="271dp"
+                android:layout_height="55dp"
                 android:layout_weight="1"
-                android:clickable="true"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/program_dept"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.86"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.842" />
 
             <TextView
                 android:id="@+id/program_dept"

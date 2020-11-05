@@ -2,12 +2,14 @@ package com.adrinofast.sa4;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,14 +17,25 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 
 public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHolder>  {
     Context context;
     private OnItemClickListener mListener;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+
      List<Program> mPrograms;
 
 
@@ -53,6 +66,9 @@ public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHol
         public TextView nameTextView;
         public TextView programDeptTextView;
         public TextView gradtextView;
+        public ImageView college_image;
+
+
         ConstraintLayout relay_lay;
         MaterialCardView matcard;
 
@@ -66,6 +82,7 @@ public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHol
             nameTextView = (TextView) itemView.findViewById(R.id.college_name);
             gradtextView = (TextView)itemView.findViewById(R.id.message_text);
             programDeptTextView = (TextView)itemView.findViewById(R.id.program_dept);
+            college_image = itemView.findViewById(R.id.college_image);
       matcard = itemView.findViewById(R.id.con_lay_eachitem);
 
 
@@ -92,10 +109,13 @@ public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHol
     public ProgramAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         Context context = parent.getContext();
+
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
         View colleegView = inflater.inflate(R.layout.rv_each_row, parent, false);
+
+
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(colleegView,mListener);
@@ -103,7 +123,7 @@ public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProgramAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ProgramAdapter.ViewHolder holder, final int position) {
 
 
 
@@ -116,23 +136,29 @@ public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHol
         textView.setText(program.getEngineering());
 
         TextView textView2 = holder.programDeptTextView;
-        textView2.setText(program.getCollegeName());
+        textView2.setText(program.getCollegeName()+ " "+program.getTypeCollegeUni());
 
         TextView textview3 = holder.gradtextView;
         textview3.setText(program.getLevel());
 
+        final ImageView image_college = holder.college_image;
 
+        Log.i("the program deatils are", program.toString());
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                listener.onItemClick(1);
-//
-//            }
-//        });
+        StorageReference storageRef = storage.getReferenceFromUrl(program.getImageURL());
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).resize(220, 220).transform(new CropCircleTransformation()).into(holder.college_image);
 
-
-    }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
+  }
 
     @Override
     public int getItemCount() {

@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Program implements Serializable {
 
     private String Id;
+    private String documentid;
 
     private String CollegeName;
     private String Department;
@@ -18,8 +19,28 @@ public class Program implements Serializable {
     private String PossibleCareer;
     private String  PrimaryCampus;
     private String StartTerm;
-
     private String imageURL;
+
+    private String  typeCollegeUni;
+
+    //Gettres and Setters
+
+
+    public String getDocumentid() {
+        return documentid;
+    }
+
+    public void setDocumentid(String documentid) {
+        this.documentid = documentid;
+    }
+
+    public String getTypeCollegeUni() {
+        return typeCollegeUni;
+    }
+
+    public void setTypeCollegeUni(String typeCollegeUni) {
+        this.typeCollegeUni = typeCollegeUni;
+    }
 
     public String getId() {
         return Id;
@@ -121,6 +142,7 @@ public class Program implements Serializable {
     public String toString() {
         return "Program{" +
                 "Id='" + Id + '\'' +
+                ", documentid='" + documentid + '\'' +
                 ", CollegeName='" + CollegeName + '\'' +
                 ", Department='" + Department + '\'' +
                 ", Duration='" + Duration + '\'' +
@@ -130,6 +152,8 @@ public class Program implements Serializable {
                 ", PossibleCareer='" + PossibleCareer + '\'' +
                 ", PrimaryCampus='" + PrimaryCampus + '\'' +
                 ", StartTerm='" + StartTerm + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", typeCollegeUni='" + typeCollegeUni + '\'' +
                 '}';
     }
 }

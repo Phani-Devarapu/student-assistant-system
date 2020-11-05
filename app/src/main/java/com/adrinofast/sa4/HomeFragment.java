@@ -29,6 +29,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,7 @@ import androidx.appcompat.widget.SearchView;
 public class HomeFragment extends Fragment    {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     List<Program> arryProg;
     SearchView mySearch;
     RecyclerView rvcollges;
@@ -49,8 +51,6 @@ public class HomeFragment extends Fragment    {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-
 
         return inflater.inflate(R.layout.fragment_home, container, false);
 
@@ -70,10 +70,7 @@ public class HomeFragment extends Fragment    {
 
         Program p1 = new Program();
         arryProg = new ArrayList<Program>();
-        p1.setCollegeName("asas");
-        p1.setFaculty("Asa");
-        p1.setDepartment("plplpl");
-        arryProg.add(p1);
+
 
         rvcollges = (RecyclerView) view.findViewById(R.id.rvcollegeView);
         rvcollges.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -111,12 +108,6 @@ public class HomeFragment extends Fragment    {
 
        getData();
 
-
-
-
-
-
-
     }
 
     private void getData()
@@ -129,15 +120,13 @@ public class HomeFragment extends Fragment    {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                //arryProg.add(document.toObject(Program.class));
-                                Log.i("the id is " , document.getId());
+                                 String proId = document.getId().toString();
+
                                 Program p1 = document.toObject(Program.class);
+                                p1.setDocumentid(proId);
+                                Log.i("the data", p1.toString());
                                 arryProg.add(p1);
-
-                                Log.i("the data us " , p1.toString());
-
-
-                            }
+                          }
                             rvAdapter.notifyDataSetChanged();
                         } else {
                            // Log.w(TAG, "Error getting documents.", task.getException());
@@ -149,7 +138,7 @@ public class HomeFragment extends Fragment    {
 
     private void queryDB(String qparam)
     {
-        Log.i("Insid ethe querymeh", qparam);
+
         db.collection("Programs")
                 .whereEqualTo("collegeName", qparam)
                 .get()
@@ -157,16 +146,18 @@ public class HomeFragment extends Fragment    {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            Log.i("sucessful","thw data is ");
+
                             arryProg.clear();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                //Log.d(TAG, document.getId() + " => " + document.getData());
-                                Log.i("the id is " , document.getData().toString());
-                                Program p1 = document.toObject(Program.class);
-                                Log.i("progrma",p1.toString());
-                                arryProg.add(p1);
 
-                                Log.i("the data us " , p1.toString());
+                                String proId = document.getId().toString();
+                                 Log.i("the data us " , proId);
+
+                                Program p1 = document.toObject(Program.class);
+
+                                p1.setId(proId);
+
+                                arryProg.add(p1);
 
                             }
                             rvAdapter.notifyDataSetChanged();
