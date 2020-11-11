@@ -67,24 +67,34 @@ public class LoginActivity extends AppCompatActivity {
         Log.i("The mail is" , email);
         Log.i("the pass is ", password);
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+        if(email.length()>5 && password.length()>5)
+        {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
 
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(context,HomeActivity.class);
-                            startActivity(intent);
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                Intent intent = new Intent(context,HomeActivity.class);
+                                startActivity(intent);
 
-                        } else {
-                            Toast toast = Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT);
-                            toast.show();
+                            } else {
+                                Toast toast = Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+
+
                         }
+                    });
+        }
+        else
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_SHORT);
+            toast.show();
+        }
 
-                        // ...
-                    }
-                });
+
     }
 
 

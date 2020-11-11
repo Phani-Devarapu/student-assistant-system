@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,6 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        FirebaseApp.initializeApp(this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -50,23 +52,25 @@ public class SignUpActivity extends AppCompatActivity {
         but_signup_cognito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signUp();
+                String email = String.valueOf(text_signupEmail.getText());
+                String password = String.valueOf(text_signupPass.getText());
+                String confirmPassword = String.valueOf(text_siggnupConfirmPassword.getText());
+
+                signUp(email,password,confirmPassword);
             }
         });
 
 
+
     }
 
-    private void signUp()
+    public void signUp(String email,String password,String confirmPassword)
     {
 
-        String email = String.valueOf(text_signupEmail.getText());
-        String password = String.valueOf(text_signupPass.getText());
-        String confirmPassword = String.valueOf(text_siggnupConfirmPassword.getText());
 
         if(password.contentEquals(confirmPassword))
         {
-            if(text_signupEmail.getText().toString().trim().matches(emailPattern))
+            if(email.matches(emailPattern))
             {
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

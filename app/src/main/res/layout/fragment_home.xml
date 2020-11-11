@@ -6,23 +6,10 @@
     android:layout_height="match_parent">
 
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchview"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:layout_above="@+id/rvcollegeView"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:queryHint="Enter College name"></androidx.appcompat.widget.SearchView>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvcollegeView"
         android:layout_width="match_parent"
-        android:layout_height="564dp"
+        android:layout_height="640dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="44dp"
         app:layout_constraintBottom_toBottomOf="parent"

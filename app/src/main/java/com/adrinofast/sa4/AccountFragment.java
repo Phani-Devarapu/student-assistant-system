@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,11 @@ public class AccountFragment extends Fragment {
     Button btn_signout;
     private FirebaseAuth mAuth;
     EditText text_loginChecker;
+    TextView accountFirstName;
+    TextView accountLastName;
+    TextView accountEmail;
+    TextView accountPhone;
+
 
 
 
@@ -37,14 +43,21 @@ public class AccountFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Account");
 
-        text_loginChecker = view.findViewById(R.id.login_checker);
+        accountFirstName = view.findViewById(R.id.account_FirstName);
+        accountLastName = view.findViewById(R.id.account_LastName);
+        accountEmail=view.findViewById(R.id.account_Email);
+        accountPhone=view.findViewById(R.id.account_Phone);
+
+
         btn_signout = view.findViewById(R.id.but_signout);
 
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            String id  = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            Log.i("the is id ", id);
-            text_loginChecker.setText("user signed in ");
+            accountFirstName.setText(user.getDisplayName());
+            accountPhone.setText(user.getPhoneNumber());
+            accountEmail.setText(user.getEmail());
+            accountLastName.setText(user.getProviderId());
+
         } else {
 
             text_loginChecker.setText("User not signed in Please Sign In ");
