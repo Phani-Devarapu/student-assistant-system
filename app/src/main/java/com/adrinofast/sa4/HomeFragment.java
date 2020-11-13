@@ -179,7 +179,7 @@ public class HomeFragment extends Fragment    {
 
     private void queryDB(String qpram )
     {
-        Client client = new Client("B2P91PKMWT", "eb92374dd91aa3d33ac1fd63b1b3efa8");
+        Client client = new Client("cliid", "appkey");
         Index index = client.getIndex("programs");
         Query query = new Query(qpram)
                 .setHitsPerPage(50);
