@@ -4,5 +4,11 @@
     <string name="text_label_2">Wishlist</string>
     <string name="text_label_3">Account</string>
     <string name="wishlist_program_description">Wishlist</string>
+    <string name="remove_wishlist_program_description">Remove</string>
+    <string name="pro_des_Department_key">Department</string>
+    <string name="pro_des_Faculty_key">Faculty</string>
+    <string name="pro_des_Degree_key">Degree</string>
+    <string name="pro_des_Duration_key">Duration</string>
+    <string name="pro_des_satrtTerm_key">Start Term</string>
 
 </resources>

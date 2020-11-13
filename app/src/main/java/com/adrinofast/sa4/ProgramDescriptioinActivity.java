@@ -2,14 +2,19 @@ package com.adrinofast.sa4;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,21 +36,33 @@ import java.util.List;
 
 public class ProgramDescriptioinActivity extends AppCompatActivity {
 
+    Context context= this;
+
     public static final String TAG = "ProgramDescriptioinActivity";
 
 
     //Firebase declarations
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseAuth mAuth;
     FirebaseUser user;
 
 
     Program pro;
     List<WishlistModel> wishModel;
+    ArrayList<String> userWishList;
 
     public ImageView college_image;
-    public ImageButton fav_button;
-    FirebaseStorage storage = FirebaseStorage.getInstance();
+    public Button fav_button;
+    public Button fav_remove_button;
+    public TextView programName;
+    public TextView collegeName;
+    public TextView programLevel;
+    public TextView departmentName;
+    public TextView facultyName;
+    public TextView degreeName;
+    public TextView durationTime;
+    public TextView startEndTermTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +72,18 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
         //initiations
         mAuth = FirebaseAuth.getInstance();
         college_image = findViewById(R.id.produDescriMainImage);
-        fav_button = findViewById(R.id.fav_Icon_imageButton);
+        fav_button = findViewById(R.id.add2WishListButton);
+        fav_remove_button=findViewById(R.id.removeFromWishListButton);
+        programName = findViewById(R.id.program_des_ProgramName);
+        collegeName = findViewById(R.id.program_des_CollegeName);
+        programLevel= findViewById(R.id.program_des_level);
+        departmentName = findViewById(R.id.pro_des_departmentName);
+        facultyName= findViewById(R.id.pro_des_facultyName);
+        degreeName = findViewById(R.id.pro_des_degreeName);
+        durationTime = findViewById(R.id.pro_des_durationTime);
+        startEndTermTime= findViewById(R.id.pro_des_startTermDuration);
+       //
+
 
         user = mAuth.getCurrentUser();
         if (user != null) {
@@ -84,6 +112,14 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
         });
 
 
+        fav_remove_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeWishlisthandler();
+            }
+        });
+
+
     }
 
     private void getBundleData()
@@ -91,10 +127,30 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
         Intent i = getIntent();
         Bundle data = i.getExtras();
         pro = (Program) data.getSerializable("ProgramData");
+        userWishList = (ArrayList<String>) data.getSerializable("wishListItems");
+        Log.i(TAG, "Inside the bundle activity");
+        Log.i(TAG, String.valueOf(userWishList.size()));
     }
 
     private void bindingData2Views()
     {
+       if(userWishList.contains(pro.getDocumentid()))
+       {
+           fav_button.setEnabled(false);
+       }
+       else
+       {
+           fav_remove_button.setEnabled(false);
+       }
+        programName.setText(pro.getEngineering());
+        collegeName.setText(pro.getCollegeName() + " "+ pro.getTypeCollegeUni());
+        programLevel.setText(pro.getLevel());
+        departmentName.setText(pro.getDepartment());
+        facultyName.setText(pro.getFaculty());
+        degreeName.setText("Bachelor of Engineering (BEng)");
+        durationTime.setText("4-5 Years");
+        startEndTermTime.setText(pro.getStartTerm());
+
         StorageReference storageRef = storage.getReferenceFromUrl(pro.getImageURL());
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -173,6 +229,9 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
                             docRef.update("programId",currentPrograms).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    fav_button.setEnabled(false);
+                                    fav_remove_button.setEnabled(true);
+                                    //fav_button.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_wishlist_button_red_bg));
                                     Toast toast = Toast.makeText(getApplicationContext(), "Item Moved to WishList", Toast.LENGTH_SHORT);
                                     toast.show();
 
@@ -213,6 +272,48 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
 
         return null;
 
+    }
+
+    private void removeWishlisthandler()
+    {
+        String userUniqueId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final DocumentReference docRef = db.collection("wishlist").document(userUniqueId);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        WishlistModel revWw1 = new WishlistModel();
+                        revWw1 = document.toObject(WishlistModel.class);
+                        ArrayList<String> currentPrograms = new ArrayList<String>();
+                        currentPrograms = (ArrayList<String>) revWw1.getProgramId();
+                        if(currentPrograms.contains(pro.getDocumentid()))
+                        {
+                           currentPrograms.remove(pro.getDocumentid());
+                           revWw1.setProgramId(currentPrograms);
+                            docRef.update("programId",currentPrograms).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    fav_button.setEnabled(true);
+                                    fav_remove_button.setEnabled(false);
+                                    //fav_button.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_wishlist_button_red_bg));
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Item Removed From WishList", Toast.LENGTH_SHORT);
+                                    toast.show();
+
+                                }
+                            });
+                        }
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
 }

@@ -69,7 +69,6 @@ public class FavouriteFragment extends Fragment {
 
         }
 
-
         arryProgWish = new ArrayList<Program>();
         rvcollges = (RecyclerView) view.findViewById(R.id.rvwishList);
         rvcollges.setLayoutManager(new LinearLayoutManager(view.getContext()));

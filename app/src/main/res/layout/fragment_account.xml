@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView"
+                android:drawableRight="@drawable/ic_baseline_edit_24"
                 android:textStyle="bold"/>
 
             <TextView

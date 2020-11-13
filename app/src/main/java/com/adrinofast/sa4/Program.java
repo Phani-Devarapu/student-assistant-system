@@ -10,6 +10,7 @@ public class Program implements Serializable {
     private String CollegeName;
     private String Department;
     private String Duration;
+    private String Degree;
 
     private String Engineering;
 
@@ -25,6 +26,14 @@ public class Program implements Serializable {
 
     //Gettres and Setters
 
+
+    public String getDegree() {
+        return Degree;
+    }
+
+    public void setDegree(String degree) {
+        Degree = degree;
+    }
 
     public String getDocumentid() {
         return documentid;

@@ -23,23 +23,39 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.algolia.search.saas.AlgoliaException;
+import com.algolia.search.saas.Client;
+import com.algolia.search.saas.CompletionHandler;
+import com.algolia.search.saas.Index;
+import com.algolia.search.saas.Query;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
 
+import java.io.DataInput;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.LongFunction;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class HomeFragment extends Fragment    {
@@ -56,7 +72,7 @@ public class HomeFragment extends Fragment    {
     List<Program> arryProg;
     SearchView mySearch;
     RecyclerView rvcollges;
-  //RecyclerView.Adapter rvAdapter  ;
+    ArrayList<String> userWishListIds;
     ProgramAdapter rvAdapter;
     @Nullable
     @Override
@@ -99,6 +115,13 @@ public class HomeFragment extends Fragment    {
         rvAdapter = new ProgramAdapter(arryProg);
         rvcollges.setAdapter(rvAdapter);
 
+        if(user!=null)
+        {
+            userWishListIds =getUserWishListHomeFragment(user.getUid());
+        }
+
+
+
         rvAdapter.setOnItemClickListe(new ProgramAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -106,6 +129,7 @@ public class HomeFragment extends Fragment    {
                 if (user != null){
                     Bundle b = new Bundle();
                     b.putSerializable("ProgramData",arryProg.get(position));
+                    b.putSerializable("wishListItems",userWishListIds);
                     Intent intent = new Intent(getActivity(), ProgramDescriptioinActivity.class);
                     intent.putExtras(b);
                     startActivity(intent);
@@ -155,36 +179,79 @@ public class HomeFragment extends Fragment    {
 
     private void queryDB(String qpram )
     {
+        Client client = new Client("B2P91PKMWT", "eb92374dd91aa3d33ac1fd63b1b3efa8");
+        Index index = client.getIndex("programs");
+        Query query = new Query(qpram)
+                .setHitsPerPage(50);
+        index.searchAsync(query, new CompletionHandler() {
+            @Override
+            public void requestCompleted(JSONObject content, AlgoliaException error) {
+                try {
+                    JSONArray asd = content.getJSONArray("hits");
+                   // arryProg.clear();
+                    List<String> li = new ArrayList<>();
+                    Program p1 = new Program();
+                    arryProg.clear();
+                    for(int i=0;i<asd.length();i++)
+                    {
 
-        db.collection("Programs")
-                .whereEqualTo("collegeName", qpram)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
+                        JSONObject obj = asd.getJSONObject(i);
+                        Gson gson= new Gson();
 
-                            arryProg.clear();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                        p1.setCollegeName(obj.getString("collegeName"));
+                        p1.setDocumentid(obj.getString("objectID"));
+                        p1.setDepartment(obj.getString("department"));
+                        p1.setDuration(obj.getString("duration"));
+                        p1.setEngineering(obj.getString("engineering"));
+                        //p1.setFaculty(obj.getString("faculty"));
+                        p1.setLevel(obj.getString("level"));
+                        p1.setPossibleCareer(obj.getString("possibleCareer"));
+                        p1.setStartTerm(obj.getString("startTerm"));
+                        p1.setPrimaryCampus(obj.getString("primaryCampus"));
+                        p1.setImageURL(obj.getString("imageURL"));
+                        arryProg.add(p1);
 
-                                String proId = document.getId().toString();
-                                // Log.i("the data us " , proId);
-
-                                Program p1 = document.toObject(Program.class);
-
-                                p1.setId(proId);
-
-                                arryProg.add(p1);
-
-                            }
-                            rvAdapter.notifyDataSetChanged();
-                        }
-
-                        else {
-                            //Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
                     }
-                });
+                    rvAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+
+
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+
+//        db.collection("Programs")
+//                .whereEqualTo("collegeName", qpram)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//
+//                            arryProg.clear();
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//
+//                                String proId = document.getId().toString();
+//                                // Log.i("the data us " , proId);
+//
+//                                Program p1 = document.toObject(Program.class);
+//
+//                                p1.setId(proId);
+//
+//                                arryProg.add(p1);
+//
+//                            }
+//                            rvAdapter.notifyDataSetChanged();
+//                        }
+//
+//                        else {
+//                            //Log.d(TAG, "Error getting documents: ", task.getException());
+//                        }
+//                    }
+//                });
     }
 
     @Override
@@ -203,7 +270,6 @@ public class HomeFragment extends Fragment    {
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     Log.i("onQueryTextChange", newText);
-
                     return true;
                 }
                 @Override
@@ -217,6 +283,24 @@ public class HomeFragment extends Fragment    {
             searchView.setOnQueryTextListener(queryTextListener);
         }
         super.onCreateOptionsMenu(menu, inflater);
+
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                onBackPressed();
+                return false;
+            }
+        });
+    }
+
+
+    public void onBackPressed() {
+        if (!searchView.isIconified()) {
+            getData();
+        } else {
+
+        }
     }
 
 //    @Override
@@ -231,6 +315,68 @@ public class HomeFragment extends Fragment    {
 //        searchView.setOnQueryTextListener(queryTextListener);
 //        return super.onOptionsItemSelected(item);
 //    }
+
+    private ArrayList<String> getUserWishListHomeFragment(String userUniId)
+    {
+        String asd = null ;
+         final ArrayList<String> currentPrograms = new ArrayList<String>();
+
+        final DocumentReference docRef = db.collection("wishlist").document(userUniId);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        WishlistModel ww1 = new WishlistModel();
+                        ww1 = document.toObject(WishlistModel.class);
+                        ArrayList<String> cps = new ArrayList<String>();
+                        for(int i=0;i< ww1.getProgramId().size();i++)
+                        {
+                            currentPrograms.add(ww1.getProgramId().get(i));
+                        }
+
+
+
+//                        if(currentPrograms.contains(pro.getDocumentid()))
+//                        {
+//                            Toast toast = Toast.makeText(getApplicationContext(), "Item already in the WishList", Toast.LENGTH_SHORT);
+//                            toast.show();
+//                        }
+//                        else
+//                        {
+//                            currentPrograms.add(pro.getDocumentid());
+//                            ww1.setProgramId(currentPrograms);
+//                            docRef.update("programId",currentPrograms).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    Toast toast = Toast.makeText(getApplicationContext(), "Item Moved to WishList", Toast.LENGTH_SHORT);
+//                                    toast.show();
+//
+//                                }
+//                            });
+//
+//                        }
+
+
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+
+       Log.i(TAG, String.valueOf(currentPrograms.size()));
+        return currentPrograms;
+
+    }
+
+
 
 
 
