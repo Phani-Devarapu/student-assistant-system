@@ -51,7 +51,7 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
     Program pro;
     List<WishlistModel> wishModel;
     ArrayList<String> userWishList;
-
+    String userUniID;
     public ImageView college_image;
     public Button fav_button;
     public Button fav_remove_button;
@@ -82,12 +82,12 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
         degreeName = findViewById(R.id.pro_des_degreeName);
         durationTime = findViewById(R.id.pro_des_durationTime);
         startEndTermTime= findViewById(R.id.pro_des_startTermDuration);
-       //
+
 
 
         user = mAuth.getCurrentUser();
         if (user != null) {
-            String id  = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            userUniID  = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
         } else {
@@ -128,12 +128,18 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
         Bundle data = i.getExtras();
         pro = (Program) data.getSerializable("ProgramData");
         userWishList = (ArrayList<String>) data.getSerializable("wishListItems");
-        Log.i(TAG, "Inside the bundle activity");
-        Log.i(TAG, String.valueOf(userWishList.size()));
+
     }
 
     private void bindingData2Views()
     {
+        Log.i(TAG,"Inside the pro des activty");
+        Log.i(TAG,pro.toString());
+        for(String st:userWishList)
+        {
+            Log.i(TAG,st);
+        }
+
        if(userWishList.contains(pro.getDocumentid()))
        {
            fav_button.setEnabled(false);
@@ -172,8 +178,6 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
 
         String userUniqueId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         WishlistModel userWishList = getUserWishList(userUniqueId);
-       // Log.i(TAG,userWishList.toString());
-
 
         WishlistModel wishModel = new WishlistModel();
 
@@ -203,7 +207,6 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
     private WishlistModel getUserWishList(String userUniId)
     {
       String asd = null ;
-
 
         final DocumentReference docRef = db.collection("wishlist").document(userUniId);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -244,6 +247,7 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
 
                     } else {
                         Log.d(TAG, "No such document");
+                        createNewDocument();
                     }
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
@@ -272,6 +276,27 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
 
         return null;
 
+    }
+
+
+    //This method created new document, if user is storing his/her first wishlist item
+    private void createNewDocument() {
+        WishlistModel ww1 = new WishlistModel();
+        ww1.setUserId(userUniID);
+        ArrayList<String> firstWishListId = new ArrayList<>();
+        firstWishListId.add(pro.getDocumentid());
+        ww1.setProgramId(firstWishListId);
+
+        db.collection("wishlist").document(userUniID).set(ww1).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                fav_button.setEnabled(false);
+                fav_remove_button.setEnabled(true);
+                Toast toast = Toast.makeText(getApplicationContext(), "Item Added to WishList", Toast.LENGTH_SHORT);
+                toast.show();
+
+            }
+        });
     }
 
     private void removeWishlisthandler()

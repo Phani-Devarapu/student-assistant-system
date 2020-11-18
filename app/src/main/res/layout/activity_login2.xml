@@ -53,7 +53,8 @@
 
     <Button
         android:id="@+id/but_login"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:background="@drawable/ic_wishlist_button_red_bg"
+        android:textColor="#FFFFFF"
         android:layout_width="367dp"
         android:layout_height="68dp"
         android:text="Login"
@@ -67,7 +68,8 @@
 
     <Button
         android:id="@+id/but_forgotPas"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:background="@drawable/ic_wishlist_button_red_bg"
+        android:textColor="#FFFFFF"
         android:layout_width="367dp"
         android:layout_height="68dp"
         android:text="Forgot password"

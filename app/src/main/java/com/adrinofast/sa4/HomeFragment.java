@@ -74,12 +74,17 @@ public class HomeFragment extends Fragment    {
     RecyclerView rvcollges;
     ArrayList<String> userWishListIds;
     ProgramAdapter rvAdapter;
+
+    //AlgoliaKeys
+    private String clientId;
+    private String apikey;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fragment_home, container, false);
-
 
     }
 
@@ -109,7 +114,7 @@ public class HomeFragment extends Fragment    {
         Program p1 = new Program();
         arryProg = new ArrayList<Program>();
 
-
+       //Intializing the adapter
         rvcollges = (RecyclerView) view.findViewById(R.id.rvcollegeView);
         rvcollges.setLayoutManager(new LinearLayoutManager(view.getContext()));
         rvAdapter = new ProgramAdapter(arryProg);
@@ -120,8 +125,7 @@ public class HomeFragment extends Fragment    {
             userWishListIds =getUserWishListHomeFragment(user.getUid());
         }
 
-
-
+        //Handling on click of each program from HomeFragment
         rvAdapter.setOnItemClickListe(new ProgramAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -147,7 +151,31 @@ public class HomeFragment extends Fragment    {
 
 
 
-       getData();
+       getData();  //Method which retrives all the programs from the Firebase
+       getAlgoliaConfig();  //Getting keys of Algolia to implement the search functionlity.
+
+    }
+
+    private void getAlgoliaConfig() {
+        final DocumentReference docRef = db.collection("AlgoliaSYEK").document("M5wmDvN0nfQlXVJ7YENS");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        clientId= (String) document.getData().get("clientID");
+                        apikey= (String) document.getData().get("apikey");
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
 
     }
 
@@ -177,9 +205,11 @@ public class HomeFragment extends Fragment    {
     }
 
 
+
+    //This method will send search request to algolia with keys and update the adapter with the response.
     private void queryDB(String qpram )
     {
-        Client client = new Client("cliid", "appkey");
+        Client client = new Client(clientId, apikey);
         Index index = client.getIndex("programs");
         Query query = new Query(qpram)
                 .setHitsPerPage(50);
@@ -194,20 +224,19 @@ public class HomeFragment extends Fragment    {
                     arryProg.clear();
                     for(int i=0;i<asd.length();i++)
                     {
-
                         JSONObject obj = asd.getJSONObject(i);
                         Gson gson= new Gson();
-
                         p1.setCollegeName(obj.getString("collegeName"));
+                        p1.setTypeCollegeUni(obj.getString("typeCollegeUni"));
                         p1.setDocumentid(obj.getString("objectID"));
                         p1.setDepartment(obj.getString("department"));
-                        p1.setDuration(obj.getString("duration"));
+                       // p1.setDuration(obj.getString("duration"));
                         p1.setEngineering(obj.getString("engineering"));
                         //p1.setFaculty(obj.getString("faculty"));
                         p1.setLevel(obj.getString("level"));
-                        p1.setPossibleCareer(obj.getString("possibleCareer"));
+                        //p1.setPossibleCareer(obj.getString("possibleCareer"));
                         p1.setStartTerm(obj.getString("startTerm"));
-                        p1.setPrimaryCampus(obj.getString("primaryCampus"));
+                        //p1.setPrimaryCampus(obj.getString("primaryCampus"));
                         p1.setImageURL(obj.getString("imageURL"));
                         arryProg.add(p1);
 
@@ -222,7 +251,8 @@ public class HomeFragment extends Fragment    {
 
             }
         });
-
+//
+ //       this will search in the firebase firestore database
 //        db.collection("Programs")
 //                .whereEqualTo("collegeName", qpram)
 //                .get()
@@ -254,6 +284,8 @@ public class HomeFragment extends Fragment    {
 //                });
     }
 
+
+    //Method which wil render the top app bar with menu
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //inflater.inflate(R.menu.top_app_bar, menu);
@@ -303,19 +335,7 @@ public class HomeFragment extends Fragment    {
         }
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.searchview:
-//                // Not implemented here
-//                return false;
-//            default:
-//                break;
-//        }
-//        searchView.setOnQueryTextListener(queryTextListener);
-//        return super.onOptionsItemSelected(item);
-//    }
-
+//This metbod will retrive the user wishlist, if the user is logged in.
     private ArrayList<String> getUserWishListHomeFragment(String userUniId)
     {
         String asd = null ;
@@ -336,32 +356,7 @@ public class HomeFragment extends Fragment    {
                         {
                             currentPrograms.add(ww1.getProgramId().get(i));
                         }
-
-
-
-//                        if(currentPrograms.contains(pro.getDocumentid()))
-//                        {
-//                            Toast toast = Toast.makeText(getApplicationContext(), "Item already in the WishList", Toast.LENGTH_SHORT);
-//                            toast.show();
-//                        }
-//                        else
-//                        {
-//                            currentPrograms.add(pro.getDocumentid());
-//                            ww1.setProgramId(currentPrograms);
-//                            docRef.update("programId",currentPrograms).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                @Override
-//                                public void onSuccess(Void aVoid) {
-//                                    Toast toast = Toast.makeText(getApplicationContext(), "Item Moved to WishList", Toast.LENGTH_SHORT);
-//                                    toast.show();
-//
-//                                }
-//                            });
-//
-//                        }
-
-
-
-                    } else {
+                 } else {
                         Log.d(TAG, "No such document");
                     }
                 } else {

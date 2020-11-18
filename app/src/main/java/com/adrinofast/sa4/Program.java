@@ -18,7 +18,7 @@ public class Program implements Serializable {
     private String Level;
 
     private String PossibleCareer;
-    private String  PrimaryCampus;
+    private String PrimaryCampus;
     private String StartTerm;
     private String imageURL;
 

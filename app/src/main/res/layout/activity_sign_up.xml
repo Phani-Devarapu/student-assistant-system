@@ -19,6 +19,7 @@
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         app:contentPadding="10dp"
+        android:background="#C5EADB"
         app:contentPaddingBottom="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,13 +96,14 @@
                     android:id="@+id/signup_confirm_password"
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPassword"
                     android:textStyle="bold"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/but_signup"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:background="@drawable/ic_wishlist_button_red_bg"
+                android:textColor="#FFFFFF"
                 android:layout_width="340dp"
                 android:layout_height="56dp"
                 android:text="Sign UP"

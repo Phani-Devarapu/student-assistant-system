@@ -43,7 +43,7 @@ public class ForgotpasswordActivity extends AppCompatActivity {
 
     }
 
-
+    //Upon providing the user mail, an  e-mail will be sent from firebase to reset the password
     private void sendMail()
     {
        String emailAddress = String.valueOf(text_forgotmail.getText());

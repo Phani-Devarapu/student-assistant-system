@@ -6,6 +6,33 @@
     android:layout_height="match_parent">
 
 
+    <TextView
+        android:id="@+id/TVUserMessageFragment_Favourite"
+        android:layout_width="156dp"
+        android:layout_height="35dp"
+        android:layout_above="@+id/but_login_Fragment_Favourite"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="119dp"
+        android:layout_marginBottom="71dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/but_login_Fragment_Favourite"
+        android:layout_height="68dp"
+        android:layout_width="367dp"
+        android:background="@drawable/ic_wishlist_button_red_bg"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="149dp"
+        android:text="Login"
+        app:icon="@drawable/ic_login_black_18dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvwishList"
         android:layout_width="match_parent"
@@ -15,7 +42,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
 
 
 </RelativeLayout>

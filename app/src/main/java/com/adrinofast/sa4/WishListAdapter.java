@@ -28,7 +28,7 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 public class WishListAdapter extends  RecyclerView.Adapter<WishListAdapter.ViewHolder>{
 
     Context context;
-    private ProgramAdapter.OnItemClickListener mListener;
+    private WishListAdapter.OnItemClickListener mListener;
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
     List<Program> mPrograms;
@@ -45,7 +45,7 @@ public class WishListAdapter extends  RecyclerView.Adapter<WishListAdapter.ViewH
         void onItemClick(int position);
     }
 
-    public void setOnItemClickListe(final ProgramAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListe(final WishListAdapter.OnItemClickListener listener) {
         mListener = listener;
     }
 
@@ -64,7 +64,7 @@ public class WishListAdapter extends  RecyclerView.Adapter<WishListAdapter.ViewH
 
         public Button IdButton;
 
-        public ViewHolder(View itemView,final ProgramAdapter.OnItemClickListener listener) {
+        public ViewHolder(View itemView,final WishListAdapter.OnItemClickListener listener) {
 
             super(itemView);
 

@@ -31,8 +31,6 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
         setSupportActionBar(actionBar);
         getSupportActionBar().setTitle("Home");
 
-
-
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
@@ -43,6 +41,7 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
 
     }
 
+    //Bottom navigation bar handler
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -72,28 +71,6 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.top_app_bar,menu);
 
-//        //MenuItem search_menuitem =menu.findItem(R.id.app_bar_search);
-//
-//        SearchView searchview = (SearchView) search_menuitem.getActionView();
-//
-//
-//        searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                Log.i("phani", query);
-//
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                Log.i("phani", newText);
-//                return true;
-//            }
-//        });
-
-
-
         return  true;
     }
 
@@ -109,12 +86,4 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
         return true;
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        Log.i("user details" , currentUser.getUid().toString() + " "+ currentUser.getEmail().toString() +" "+ currentUser.getMetadata().toString());
-//
-//    }
 }

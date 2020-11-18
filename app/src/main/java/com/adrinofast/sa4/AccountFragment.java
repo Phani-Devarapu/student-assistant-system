@@ -15,8 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.w3c.dom.Text;
 
 public class AccountFragment extends Fragment {
 
@@ -27,6 +30,9 @@ public class AccountFragment extends Fragment {
     TextView accountLastName;
     TextView accountEmail;
     TextView accountPhone;
+    Button loginButton_account_fragment;
+    TextView  userMessage;
+    MaterialCardView matcardAccount;
 
 
     @Nullable
@@ -41,10 +47,17 @@ public class AccountFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Account");
 
+        matcardAccount = view.findViewById(R.id.con_lay_eachitemAccountFrag);
+
         accountFirstName = view.findViewById(R.id.account_FirstName);
         accountLastName = view.findViewById(R.id.account_LastName);
         accountEmail=view.findViewById(R.id.account_Email);
         accountPhone=view.findViewById(R.id.account_Phone);
+        userMessage= view.findViewById(R.id.TVUserMessageFragment_Account);
+        userMessage.setVisibility(View.GONE);
+        loginButton_account_fragment= view.findViewById(R.id.but_login_Fragment_Account);
+        loginButton_account_fragment.setVisibility(View.GONE);
+
 
 
         btn_signout = view.findViewById(R.id.but_signout);
@@ -58,6 +71,10 @@ public class AccountFragment extends Fragment {
 
         } else {
 
+            userMessage.setText("Please Sign In");
+            userMessage.setVisibility(View.VISIBLE);
+            loginButton_account_fragment.setVisibility(View.VISIBLE);
+            matcardAccount.setVisibility(View.GONE);
             btn_signout.setVisibility(View.GONE);
 
         }
@@ -73,9 +90,22 @@ public class AccountFragment extends Fragment {
                 signOutuser();
             }
         });
+
+        loginButton_account_fragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginScreen();
+            }
+        });
     }
 
-   private void signOutuser()
+    private void LoginScreen() {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+
+    }
+
+    private void signOutuser()
     {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
@@ -91,21 +121,3 @@ public class AccountFragment extends Fragment {
     }
 }
 
-//editComment.setOnTouchListener(new OnTouchListener() {
-//@Override
-//public boolean onTouch(View v, MotionEvent event) {
-//final int DRAWABLE_LEFT = 0;
-//final int DRAWABLE_TOP = 1;
-//final int DRAWABLE_RIGHT = 2;
-//final int DRAWABLE_BOTTOM = 3;
-//
-//        if(event.getAction() == MotionEvent.ACTION_UP) {
-//        if(event.getRawX() >= (editComment.getRight() - editComment.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-//        // your action here
-//
-//        return true;
-//        }
-//        }
-//        return false;
-//        }
-//        });

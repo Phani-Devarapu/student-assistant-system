@@ -26,8 +26,6 @@ public class SignUpActivity extends AppCompatActivity {
     Button but_signup_cognito;
     Context context = this;
 
-
-
     EditText text_signupPass;
     EditText text_signupEmail;
     EditText text_siggnupConfirmPassword;
@@ -61,7 +59,6 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     public void signUp(String email,String password,String confirmPassword)
@@ -80,7 +77,22 @@ public class SignUpActivity extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     //Log.i(TAG, "createUserWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    Intent intent = new Intent(context,HomeActivity.class);
+
+                                    user.sendEmailVerification()
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Log.i("SignUp Activity", "Email sent.");
+                                                    }
+                                                    else
+                                                    {
+                                                        Log.i("SignUp Activity", task.getException().toString());
+                                                    }
+                                                }
+                                            });
+
+                                    Intent intent = new Intent(context,UserIntrestActivity.class);
                                     startActivity(intent);
 
                                     //  updateUI(user);
@@ -102,9 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(getApplicationContext(), "Invalid Email", Toast.LENGTH_SHORT);
                 toast.show();
             }
-
-
-        }
+      }
 
         else
         {
@@ -113,7 +123,22 @@ public class SignUpActivity extends AppCompatActivity {
 
         }
 
+    }
 
+    public void sendverificationMail(FirebaseUser user) {
 
+        user.sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.i("SignUp Activity", "Email sent.");
+                        }
+                        else
+                        {
+                            Log.i("SignUp Activity", task.getException().toString());
+                        }
+                    }
+                });
     }
 }

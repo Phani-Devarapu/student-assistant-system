@@ -10,5 +10,7 @@
     <string name="pro_des_Degree_key">Degree</string>
     <string name="pro_des_Duration_key">Duration</string>
     <string name="pro_des_satrtTerm_key">Start Term</string>
+    <string name="user_intre_skip_key">Skip For Now</string>
+    <string name="user_intre_confirm_key">Confirm Intrests</string>
 
 </resources>

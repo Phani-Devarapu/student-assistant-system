@@ -1,11 +1,14 @@
 package com.adrinofast.sa4;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,6 +44,11 @@ public class FavouriteFragment extends Fragment {
     List<Program> arryProgWish;
     RecyclerView rvcollges;
     WishListAdapter rvAdapter;
+    String userID;
+    ArrayList<String> userWishList;
+
+    Button loginButton_fav_fragment;
+    TextView userMessageFF;
 
     @Nullable
     @Override
@@ -49,8 +57,6 @@ public class FavouriteFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         View vv = inflater.inflate(R.layout.fragment_favourite, container, false);
-
-
         return inflater.inflate(R.layout.fragment_favourite, container, false);
     }
 
@@ -59,15 +65,12 @@ public class FavouriteFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Wishlist");
 
-         user = mAuth.getCurrentUser();
-        if (user != null) {
-            String id  = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            Log.i("the is id ", id);
 
-        } else {
+        userMessageFF= view.findViewById(R.id.TVUserMessageFragment_Favourite);
+        userMessageFF.setVisibility(View.GONE);
+        loginButton_fav_fragment= view.findViewById(R.id.but_login_Fragment_Favourite);
+        loginButton_fav_fragment.setVisibility(View.GONE);
 
-
-        }
 
         arryProgWish = new ArrayList<Program>();
         rvcollges = (RecyclerView) view.findViewById(R.id.rvwishList);
@@ -75,14 +78,58 @@ public class FavouriteFragment extends Fragment {
         rvAdapter = new WishListAdapter(arryProgWish);
         rvcollges.setAdapter(rvAdapter);
 
-        getWishListData();
- }
 
+        user = mAuth.getCurrentUser();
+        if (user != null) {
+            userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            Log.i("the is id ", userID);
+            getWishListData();
+
+        } else {
+            userMessageFF.setText("Please Sign In");
+            userMessageFF.setVisibility(View.VISIBLE);
+            loginButton_fav_fragment.setVisibility(View.VISIBLE);
+
+        }
+
+        loginButton_fav_fragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        //Handling click event of each item in the adapter
+        rvAdapter.setOnItemClickListe(new WishListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Log.i("item", String.valueOf(position));
+                if (user != null){
+                    Bundle b = new Bundle();
+                    b.putSerializable("ProgramData",arryProgWish.get(position));
+                    b.putSerializable("wishListItems",userWishList);
+                    Intent intent = new Intent(getActivity(), ProgramDescriptioinActivity.class);
+                    intent.putExtras(b);
+                    startActivity(intent);
+                }
+                else
+                {
+                    Toast toast = Toast.makeText(getActivity(), "Please SignIn, to View Program details", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
+            }
+        });
+
+    }
+
+    //Getting the user wishlist data from the firebase.
  private void getWishListData()
  {
      String userUniId = FirebaseAuth.getInstance().getCurrentUser().getUid();
      final DocumentReference docRef = db.collection("wishlist").document(userUniId);
-
 
      docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
          @Override
@@ -96,8 +143,6 @@ public class FavouriteFragment extends Fragment {
                      Log.i(TAG,ww1.toString());
                      getProgramDetails(ww1);
 
-
-
                  } else {
                      Log.d(TAG, "No such document");
                  }
@@ -108,16 +153,17 @@ public class FavouriteFragment extends Fragment {
      });
  }
 
-
+//For each item in teh wishlist, getting the complete details of the program
  private void  getProgramDetails(WishlistModel ww1)
- {
-     Log.i("inside the program getter", ww1.toString());
+ {  userWishList= (ArrayList<String>) ww1.getProgramId();
+
 
      final CollectionReference docRefPrograms = db.collection("Programs");
 
      for(String str: ww1.getProgramId())
      {
          Log.i(TAG,str);
+
          docRefPrograms.document(str).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
              @Override
              public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -125,7 +171,10 @@ public class FavouriteFragment extends Fragment {
                  {
                      DocumentSnapshot document = task.getResult();
                      if (document.exists()) {
+                         String docid = document.getId();
+
                          Program p1 = document.toObject(Program.class);
+                         p1.setDocumentid(docid);
                          Log.i(TAG,p1.toString());
                          arryProgWish.add(p1);
 
@@ -136,4 +185,43 @@ public class FavouriteFragment extends Fragment {
          });
      }
  }
+
+    //Another way to get the wishlist details, but not using as of now.
+    private ArrayList<String> getUserWishListFavouriteFragment(String userUniId)
+    {
+        String asd = null ;
+        final ArrayList<String> FFcurrentPrograms = new ArrayList<String>();
+
+        final DocumentReference docRef = db.collection("wishlist").document(userUniId);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        WishlistModel ww1 = new WishlistModel();
+                        ww1 = document.toObject(WishlistModel.class);
+                        ArrayList<String> cps = new ArrayList<String>();
+                        for(int i=0;i< ww1.getProgramId().size();i++)
+                        {
+                            FFcurrentPrograms.add(ww1.getProgramId().get(i));
+                        }
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+
+        Log.i(TAG, String.valueOf(FFcurrentPrograms.size()));
+        return FFcurrentPrograms;
+
+    }
+
+
 }

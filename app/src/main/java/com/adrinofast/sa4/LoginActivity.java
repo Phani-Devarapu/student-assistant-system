@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-
+  //login with email and password
     private void login()
     {
         String  email = String.valueOf(text_loginName.getText());

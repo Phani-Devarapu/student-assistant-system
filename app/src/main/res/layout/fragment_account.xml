@@ -8,10 +8,13 @@
 
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/con_lay_eachitem"
-        android:layout_width="380dp"
-        android:layout_height="530dp"
+        android:id="@+id/con_lay_eachitemAccountFrag"
+        android:layout_width="332dp"
+        android:layout_height="415dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="20dp"
         android:focusable="true"
+        android:visibility="visible"
         app:cardBackgroundColor="@android:color/white"
         app:cardCornerRadius="0dp"
         app:cardElevation="5dp"
@@ -22,14 +25,14 @@
         app:contentPaddingBottom="0dp"
         app:layout_constraintBottom_toTopOf="@+id/but_signout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.272"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.287">
+        app:layout_constraintVertical_bias="0.818">
 
         <LinearLayout
-            android:layout_width="357dp"
-            android:layout_height="499dp"
+            android:layout_width="297dp"
+            android:layout_height="379dp"
             android:orientation="vertical"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
@@ -37,8 +40,9 @@
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="match_parent"
-                android:layout_height="191dp"
+                android:layout_width="223dp"
+                android:layout_height="151dp"
+                android:layout_marginLeft="25dp"
                 android:layout_weight="1"
                 tools:srcCompat="@tools:sample/avatars" />
 
@@ -47,9 +51,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView"
                 android:drawableRight="@drawable/ic_baseline_edit_24"
-                android:textStyle="bold"/>
+                android:text="TextView"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/account_LastName"
@@ -57,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/account_Email"
@@ -65,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/account_Phone"
@@ -73,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
 
@@ -81,17 +85,51 @@
 
     <Button
         android:id="@+id/but_signout"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         android:layout_width="367dp"
         android:layout_height="68dp"
+        android:background="@drawable/ic_wishlist_button_red_bg"
         android:text="Sign out"
+        android:textColor="#FFFFFF"
+        android:visibility="visible"
         app:icon="@drawable/ic_login_black_18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.636"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.914" />
+        app:layout_constraintVertical_bias="0.838" />
+
+    <TextView
+        android:id="@+id/TVUserMessageFragment_Account"
+        android:layout_width="156dp"
+        android:layout_height="35dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+    <Button
+        android:id="@+id/but_login_Fragment_Account"
+        android:layout_width="367dp"
+        android:layout_height="68dp"
+        android:background="@drawable/ic_wishlist_button_red_bg"
+        android:elevation="5dp"
+        android:focusable="true"
+        android:text="Login"
+        android:textColor="#FFFFFF"
+        app:icon="@drawable/ic_login_black_18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TVUserMessageFragment_Account"
+        app:layout_constraintVertical_bias="0.125"
+        tools:visibility="gone" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

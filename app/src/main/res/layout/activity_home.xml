@@ -23,12 +23,11 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="715dp"
-        android:layout_marginBottom="29dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="0dp"
         app:layout_anchor="@+id/toptoolbar"
         app:layout_anchorGravity="center" />
 
@@ -37,7 +36,7 @@
         android:layout_width="411dp"
         android:layout_height="73dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="-3dp"
         app:layout_anchor="@+id/fragment_container"
         app:layout_anchorGravity="bottom|center"
         app:menu="@menu/bottom_navigation_menu" />
