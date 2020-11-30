@@ -1,5 +1,6 @@
 package com.adrinofast.sa4;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -10,13 +11,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -59,6 +66,8 @@ public class UserIntrestActivity extends AppCompatActivity {
             Log.i(TAG,"User Not Signed In");
         }
 
+        getUserDetails();
+
         int_1 = findViewById(R.id.user_intrest_one);
         int_2= findViewById(R.id.user_intrest_two);
         int_3= findViewById(R.id.user_intrest_three);
@@ -93,6 +102,47 @@ public class UserIntrestActivity extends AppCompatActivity {
 
     }
 
+    private void getUserDetails()
+    {
+        DocumentReference docRef = db.collection("userSubscri").document(user.getUid());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                UserSubscriptions userSubs = documentSnapshot.toObject(UserSubscriptions.class);
+                Log.i("asaas",userSubs.toString());
+                ArrayList<String> usSt= new ArrayList<>();
+                usSt = (ArrayList<String>) userSubs.getIntrests();
+
+                if(usSt.contains("Computer")){
+                    int_1.setChecked(true);
+                }
+                if(usSt.contains("Electrical"))
+                {
+                    int_2.setChecked(true);
+                }
+                if(usSt.contains("Mechanical"))
+                {
+                    int_3.setChecked(true);
+                }
+                if(usSt.contains("Bio"))
+                {
+                    int_4.setChecked(true);
+                }
+                if(usSt.contains("Management"))
+                {
+                    int_5.setChecked(true);
+                }
+                if(usSt.contains("Others"))
+                {
+                    int_6.setChecked(true);
+                }
+
+
+            }
+        });
+
+    }
+
     private void gotoHomeActivity() {
         Intent intent = new Intent(context, HomeActivity.class);
         proload.stopProgresBar();
@@ -104,24 +154,24 @@ public class UserIntrestActivity extends AppCompatActivity {
 
         if(int_1.isChecked())
         {
-            userIntrest.add("Computer Engineering");
+            userIntrest.add("Computer");
             addIntrests("Nchrra0Ly0BD0T52jvfQ");
             
         }
 
         if(int_2.isChecked())
         {
-            userIntrest.add("Electrical Engineering");
+            userIntrest.add("Electrical");
             addIntrests("p0dRkr3xbwcqVpfP27Eb");
         }
         if(int_3.isChecked())
         {
-            userIntrest.add("Mechanical Engineering");
+            userIntrest.add("Mechanical");
             addIntrests("nUPYIVmZ5EKiARrSy0T8");
         }
         if(int_4.isChecked())
         {
-            userIntrest.add("BioEngineering");
+            userIntrest.add("Bio");
             addIntrests("793kpwMLzDRA2fcilUTd");
         }
         if(int_5.isChecked())
@@ -134,14 +184,36 @@ public class UserIntrestActivity extends AppCompatActivity {
             userIntrest.add("Others");
             addIntrests("G0ads4aQZvMxfpss5ZM2");
         }
+
+        userSubstoFirebase();
         gotoHomeActivity();
+
+
+    }
+
+    private void userSubstoFirebase() {
+        UserSubscriptions usSub = new UserSubscriptions(userIntrest);
+        db.collection("userSubscri").document(user.getUid()).set(usSub).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Intrests Added", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+        });
 
     }
 
     private void addIntrests(String docid) {
         String userId = user.getUid();
-        DocumentReference washingtonRef = db.collection("userInrests").document(docid);
-        washingtonRef.update("userID", FieldValue.arrayUnion(userId));
+
+//
+//        DocumentReference washingtonRef = db.collection("userInrests").document(docid);
+//        washingtonRef.update("userID", FieldValue.arrayUnion(userId));
+
+
+            FirebaseMessaging.getInstance().subscribeToTopic("Computer");
+        Toast.makeText(getApplicationContext(), "Topic Subscribed", Toast.LENGTH_LONG).show();
     }
 }
 

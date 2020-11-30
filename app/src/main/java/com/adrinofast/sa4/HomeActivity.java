@@ -87,3 +87,11 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
 }
+
+
+
+
+//
+//<color name="colorPrimary">#1a2b5d</color>
+//<color name="colorAccent">#ff009f</color>
+//<color name="colorPrimaryDark">#0E7C7F</color>

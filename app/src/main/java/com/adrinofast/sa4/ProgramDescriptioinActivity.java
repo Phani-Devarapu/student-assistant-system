@@ -37,6 +37,7 @@ import java.util.List;
 public class ProgramDescriptioinActivity extends AppCompatActivity {
 
     Context context= this;
+    ProgressLoader proload;
 
     public static final String TAG = "ProgramDescriptioinActivity";
 
@@ -63,11 +64,14 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
     public TextView degreeName;
     public TextView durationTime;
     public TextView startEndTermTime;
+    public TextView moreInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program_descriptioin);
+
+        proload = new ProgressLoader(ProgramDescriptioinActivity.this);
 
         //initiations
         mAuth = FirebaseAuth.getInstance();
@@ -82,6 +86,7 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
         degreeName = findViewById(R.id.pro_des_degreeName);
         durationTime = findViewById(R.id.pro_des_durationTime);
         startEndTermTime= findViewById(R.id.pro_des_startTermDuration);
+        moreInfo= findViewById(R.id.pro_des_moreInfoData);
 
 
 
@@ -106,6 +111,7 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
         fav_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                proload.StartProgressLoader();
                 Log.i(TAG,"Insid ehe wishlist fucntion");
                 wishlisthandler();
             }
@@ -156,6 +162,15 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
         degreeName.setText("Bachelor of Engineering (BEng)");
         durationTime.setText("4-5 Years");
         startEndTermTime.setText(pro.getStartTerm());
+        if(pro.getDescription()!=null)
+        {
+            moreInfo.setText(pro.getDescription());
+        }
+
+        if(pro.getPossibleCareer()!=null)
+        {
+            moreInfo.setText(pro.getPossibleCareer());
+        }
 
         StorageReference storageRef = storage.getReferenceFromUrl(pro.getImageURL());
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -187,6 +202,7 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
 
         wishModel.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
         wishModel.setProgramId(hash_Set_programids);
+
 
 //        db.collection("wishlist").document(userUniqueId)
 //                .set(wishModel)
@@ -243,8 +259,6 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
 
                         }
 
-
-
                     } else {
                         Log.d(TAG, "No such document");
                         createNewDocument();
@@ -252,6 +266,7 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
                 }
+                proload.stopProgresBar();
             }
         });
 
@@ -301,6 +316,7 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
 
     private void removeWishlisthandler()
     {
+        proload.StartProgressLoader();
         String userUniqueId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final DocumentReference docRef = db.collection("wishlist").document(userUniqueId);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -330,6 +346,7 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
                                 }
                             });
                         }
+                        proload.stopProgresBar();
 
                     } else {
                         Log.d(TAG, "No such document");

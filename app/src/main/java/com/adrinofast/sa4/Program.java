@@ -16,6 +16,7 @@ public class Program implements Serializable {
 
     private String Faculty;
     private String Level;
+    private String description;
 
     private String PossibleCareer;
     private String PrimaryCampus;
@@ -26,6 +27,14 @@ public class Program implements Serializable {
 
     //Gettres and Setters
 
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getDegree() {
         return Degree;

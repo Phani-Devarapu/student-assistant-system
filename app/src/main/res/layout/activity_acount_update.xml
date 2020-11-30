@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="142dp"
+        android:layout_height="143dp"
+        android:background="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toTopOf="@+id/con_lay_eachitemAccountFrag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/con_lay_eachitemAccountFrag"
+        android:layout_width="332dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="260dp"
+        android:focusable="true"
+        android:visibility="visible"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="10dp"
+        app:contentPaddingBottom="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/but_signout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.818">
+
+        <LinearLayout
+            android:layout_width="297dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:id="@+id/Textview_dis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:text="@string/update_account_sign"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+
+            <EditText
+                android:id="@+id/account_FirstNameUA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:hint="Enter your Display Name"
+                android:text="TextView"
+                android:textStyle="bold" />
+
+
+            <EditText
+                android:id="@+id/account_EmailUA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/but_update_intrestsUA"
+                android:layout_width="245dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_wishlist_button_red_bg"
+                android:text="Update Intrests"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="#FFFFFF"
+                android:visibility="visible"
+                app:icon="@drawable/ic_baseline_edit_24" />
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/but_updateUA"
+        android:layout_width="367dp"
+        android:layout_height="68dp"
+        android:background="@drawable/ic_wishlist_button_red_bg"
+        android:text="Update Details"
+        android:textColor="#FFFFFF"
+        android:visibility="visible"
+        app:icon="@drawable/ic_baseline_edit_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/con_lay_eachitemAccountFrag"
+        app:layout_constraintVertical_bias="0.189" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

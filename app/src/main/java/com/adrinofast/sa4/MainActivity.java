@@ -1,5 +1,6 @@
 package com.adrinofast.sa4;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -9,10 +10,14 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,22 +69,44 @@ public class MainActivity extends AppCompatActivity {
         but_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                proload.StartProgressLoader();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        proload.stopProgresBar();
-
-                    }
-                },3000);
+//                proload.StartProgressLoader();
+//                Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        proload.stopProgresBar();
+//
+//                    }
+//                },3000);
                 skipLogin();
             }
         });
 
     }
 
-   private void  redirectToSignUp()
+//    private void getFCMToken() {
+//
+//        FirebaseMessaging.getInstance().getToken()
+//                .addOnCompleteListener(new OnCompleteListener<String>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<String> task) {
+//                        if (!task.isSuccessful()) {
+//                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+//                            return;
+//                        }
+//
+//                        // Get new FCM registration token
+//                        String token = task.getResult();
+//
+//                        // Log and toast
+//                        String msg = getString(R.string.msg_token_fmt, token);
+//                        Log.d(TAG, msg);
+//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//    }
+
+    private void  redirectToSignUp()
     {
         Intent intent = new Intent(context, SignUpActivity.class);
         proload.stopProgresBar();
@@ -95,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void skipLogin()
     {
-
+        proload.StartProgressLoader();
         Intent intent = new Intent(context, HomeActivity.class);
         proload.stopProgresBar();
         startActivity(intent);

@@ -18,7 +18,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
     <ImageView
@@ -51,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_margin="10dp"
             android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="28sp"
@@ -64,18 +65,19 @@
 
             <TextView
                 android:id="@+id/program_des_CollegeName"
-                android:layout_width="193dp"
+                android:layout_width="302dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="TextView"
+                android:paddingLeft="10dp"
                 android:textAlignment="gravity"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="TextView" />
 
             <TextView
                 android:id="@+id/program_des_level"
-                android:layout_width="31dp"
+                android:layout_width="175dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="TextView"
@@ -100,8 +102,11 @@
                     android:id="@+id/pro_des_department"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
+                    android:layout_margin="10dp"
                     android:textAlignment="viewStart"
+                    android:background="@drawable/ic_wishlist_button_red_bg"
+                    android:textColor="@color/colorBlack"
+                    android:paddingLeft="15dp"
                     android:text="@string/pro_des_Department_key"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display4"
                     android:textSize="24sp"
@@ -112,7 +117,7 @@
                 <TextView
                     android:id="@+id/pro_des_departmentName"
                     android:layout_width="match_parent"
-                    android:layout_margin="16dp"
+                    android:layout_margin="10dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="20sp"
@@ -124,69 +129,75 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lay_faculty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/lay_faculty"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lay_department"
-                app:layout_constraintEnd_toEndOf="parent">
+                tools:visibility="gone">
 
-            <TextView
-                android:id="@+id/pro_des_faculty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:textAlignment="viewStart"
-                android:text="@string/pro_des_Faculty_key"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display4"
-                android:textSize="24sp"
-                android:textStyle="italic"
-                tools:text="asasas">
-            </TextView>
+                <TextView
+                    android:id="@+id/pro_des_faculty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/ic_wishlist_button_red_bg"
+                    android:textColor="@color/colorBlack"
+                    android:paddingLeft="15dp"
+                    android:text="@string/pro_des_Faculty_key"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                    android:textSize="24sp"
+                    android:textStyle="italic"
+                    tools:text="asasas"></TextView>
 
-            <TextView
-                android:id="@+id/pro_des_facultyName"
-                android:layout_width="match_parent"
-                android:layout_margin="16dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="20sp"
-                tools:text="Name">
+                <TextView
+                    android:id="@+id/pro_des_facultyName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="20sp"
+                    tools:text="Name">
 
-            </TextView>
+                </TextView>
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lay_degree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/lay_degree"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lay_faculty"
-                app:layout_constraintEnd_toEndOf="parent">
+                tools:visibility="gone">
 
-            <TextView
-                android:id="@+id/pro_des_degree"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:textAlignment="viewStart"
-                android:text="@string/pro_des_Degree_key"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display4"
-                android:textSize="24sp"
-                android:textStyle="italic"
-                tools:text="asasas">
-            </TextView>
+                <TextView
+                    android:id="@+id/pro_des_degree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:paddingLeft="15dp"
+                    android:background="@drawable/ic_wishlist_button_red_bg"
+                    android:textColor="@color/colorBlack"
+                    android:text="@string/pro_des_Degree_key"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                    android:textSize="24sp"
+                    android:textStyle="italic"
+                    tools:text="asasas"></TextView>
 
-            <TextView
-                android:id="@+id/pro_des_degreeName"
-                android:layout_width="match_parent"
-                android:layout_margin="16dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="20sp"
-                tools:text="Name">
+                <TextView
+                    android:id="@+id/pro_des_degreeName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="20sp"
+                    tools:text="Name">
 
-            </TextView>
+                </TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -202,7 +213,10 @@
                     android:id="@+id/pro_des_duration"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/ic_wishlist_button_red_bg"
+                    android:textColor="@color/colorBlack"
+                    android:paddingLeft="15dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/pro_des_Duration_key"
@@ -215,9 +229,9 @@
                     android:id="@+id/pro_des_durationTime"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
+                    android:layout_margin="10dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="8dp"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -241,8 +255,11 @@
                     android:id="@+id/pro_des_startTerm"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="8dp"
+                    android:background="@drawable/ic_wishlist_button_red_bg"
+                    android:textColor="@color/colorBlack"
+                    android:paddingLeft="15dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/pro_des_satrtTerm_key"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display4"
@@ -254,11 +271,53 @@
                     android:id="@+id/pro_des_startTermDuration"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
+                    android:layout_margin="10dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="8dp"
                     android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="20sp"
+                    tools:text="Name">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/moreinfo_program"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/startTerm_duration">
+
+                <TextView
+                    android:id="@+id/pro_des_moreInfo"
+                    android:layout_width="381dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/ic_wishlist_button_red_bg"
+                    android:textColor="@color/colorBlack"
+                    android:paddingLeft="15dp"
+                    android:text="@string/pro_des_moreInfo_key"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                    android:textSize="24sp"
+                    android:textStyle="italic"
+                    tools:text="asasas"></TextView>
+
+                <TextView
+                    android:id="@+id/pro_des_moreInfoData"
+                    android:layout_width="381dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:textAlignment="gravity"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="20sp"
                     tools:text="Name">

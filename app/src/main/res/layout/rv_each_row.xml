@@ -6,8 +6,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    >
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/con_lay_eachitem"
@@ -15,10 +14,10 @@
         android:layout_height="155dp"
         android:clickable="true"
         android:focusable="true"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="2dp"
-        app:cardMaxElevation="3dp"
+        app:cardBackgroundColor="#F5F5F5"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardMaxElevation="4dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         app:contentPadding="10dp"
@@ -44,21 +43,22 @@
 
             <TextView
                 android:id="@+id/college_name"
-                android:layout_width="271dp"
-                android:layout_height="55dp"
+                android:layout_width="258dp"
+                android:layout_height="45dp"
                 android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/program_dept"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.86"
+                app:layout_constraintHorizontal_bias="0.745"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.842" />
+                app:layout_constraintVertical_bias="0.58" />
 
             <TextView
                 android:id="@+id/program_dept"
-                android:layout_width="254dp"
-                android:layout_height="47dp"
+                android:layout_width="247dp"
+                android:layout_height="34dp"
                 android:layout_weight="1"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -75,6 +75,7 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:textSize="14sp"
+                android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.943"

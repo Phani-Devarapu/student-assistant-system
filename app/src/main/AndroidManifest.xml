@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserIntrestActivity"></activity>
+        <activity
+            android:name=".acount_updateActivity"
+            android:label="@string/title_activity_acount_update"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".UserIntrestActivity" />
         <activity android:name=".ProgramDescriptioinActivity" />
         <activity android:name=".ForgotpasswordActivity" />
         <activity android:name=".TestActivity" />
@@ -23,6 +27,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".SA4FirebaseInstaceService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

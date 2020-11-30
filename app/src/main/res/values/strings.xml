@@ -12,5 +12,21 @@
     <string name="pro_des_satrtTerm_key">Start Term</string>
     <string name="user_intre_skip_key">Skip For Now</string>
     <string name="user_intre_confirm_key">Confirm Intrests</string>
+    <string name="email_request">Enter Your Email</string>
+    <string name="send_mail_forgot_password">Send Mail</string>
+    <string name="skip_button_main">Skip</string>
+    <string name="login_button_main">Login</string>
+    <string name="signup_button_main">Sign Up</string>
+    <string name="pro_des_moreInfo_key">More Info</string>
+    <string name="update_account_sign">Plese Update Your Details</string>
+    <string name="title_activity_acount_update">acount_updateActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 </resources>

@@ -4,28 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     tools:context=".SignUpActivity">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="142dp"
+        android:layout_height="143dp"
+        android:background="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toTopOf="@+id/con_lay_eachitem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.838"
+        tools:srcCompat="@tools:sample/avatars" />
 
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/con_lay_eachitem"
         android:layout_width="379dp"
         android:layout_height="392dp"
+        android:background="#C5EADB"
         android:focusable="true"
         app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="0dp"
+        app:cardCornerRadius="12dp"
         app:cardElevation="2dp"
         app:cardMaxElevation="3dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         app:contentPadding="10dp"
-        android:background="#C5EADB"
         app:contentPaddingBottom="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.268">
+        app:layout_constraintVertical_bias="0.528">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -52,7 +67,7 @@
                     android:id="@+id/signup_email"
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -74,7 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="62dp"
                     android:inputType="textPassword"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -97,16 +112,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
                     android:inputType="textPassword"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/but_signup"
-                android:background="@drawable/ic_wishlist_button_red_bg"
-                android:textColor="#FFFFFF"
                 android:layout_width="340dp"
                 android:layout_height="56dp"
+                android:background="@drawable/ic_wishlist_button_red_bg"
                 android:text="Sign UP"
+                android:textColor="#FFFFFF"
                 app:icon="@drawable/ic_baseline_person_add_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

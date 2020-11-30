@@ -74,6 +74,7 @@ public class HomeFragment extends Fragment    {
     RecyclerView rvcollges;
     ArrayList<String> userWishListIds;
     ProgramAdapter rvAdapter;
+    ProgressLoader proload;
 
     //AlgoliaKeys
     private String clientId;
@@ -84,6 +85,7 @@ public class HomeFragment extends Fragment    {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+
         return inflater.inflate(R.layout.fragment_home, container, false);
 
     }
@@ -93,6 +95,8 @@ public class HomeFragment extends Fragment    {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         setHasOptionsMenu(true);
+        proload = new ProgressLoader(getActivity());
+        proload.StartProgressLoader();
 
         user = mAuth.getCurrentUser();
         if (user != null) {
@@ -196,7 +200,9 @@ public class HomeFragment extends Fragment    {
                               //  Log.i("the data", p1.toString());
                                 arryProg.add(p1);
                           }
+                            proload.stopProgresBar();
                             rvAdapter.notifyDataSetChanged();
+
                         } else {
                            // Log.w(TAG, "Error getting documents.", task.getException());
                         }

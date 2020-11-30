@@ -4,54 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:elevation="5dp"><![CDATA[
     tools:context=".MainActivity"
     >
+  ]]>
 
-
-    <Button
-        android:id="@+id/but_login_main"
-        android:layout_width="367dp"
-        android:textColor="#FFFFFF"
-        android:layout_height="68dp"
-        android:background="@drawable/ic_wishlist_button_red_bg"
-        android:text="Login"
-        app:icon="@drawable/ic_login_black_18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="142dp"
+        android:layout_height="143dp"
+        android:background="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toTopOf="@+id/but_login_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.346" />
+        app:layout_constraintVertical_bias="0.838"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/but_login_main"
+        android:layout_width="367dp"
+        android:layout_height="68dp"
+        android:background="@drawable/ic_wishlist_button_red_bg"
+        android:text="@string/login_button_main"
+        android:textColor="#FFFFFF"
+        app:icon="@drawable/ic_login_black_18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.636"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.453"
+        app:strokeColor="#FFFFFF"
+        app:strokeWidth="8dp" />
 
     <Button
         android:id="@+id/but_signup"
         android:layout_width="367dp"
         android:layout_height="68dp"
-        android:textColor="#FFFFFF"
+        android:layout_marginBottom="272dp"
         android:background="@drawable/ic_wishlist_button_red_bg"
-        android:layout_marginBottom="304dp"
-        android:text="Sign UP"
+        android:text="@string/signup_button_main"
+        android:textColor="#FFFFFF"
         app:icon="@drawable/ic_baseline_person_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.363"
+        app:layout_constraintHorizontal_bias="0.636"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textField9"
         app:layout_constraintVertical_bias="0.158" />
 
     <Button
         android:id="@+id/but_skip"
         android:layout_width="367dp"
-        android:textColor="#FFFFFF"
         android:layout_height="68dp"
+        android:layout_marginBottom="180dp"
         android:background="@drawable/ic_wishlist_button_red_bg"
-        android:layout_marginBottom="176dp"
-        android:text="Skip"
+        android:backgroundTint="#F4F0F0"
+        android:text="@string/skip_button_main"
+        android:textColor="#FFFFFF"
         app:icon="@drawable/ic_arrow_forward_ios_black_18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.158" />
+        app:strokeColor="#FFFFFF"
+        app:strokeWidth="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
