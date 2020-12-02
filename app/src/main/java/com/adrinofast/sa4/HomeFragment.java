@@ -62,13 +62,14 @@ public class HomeFragment extends Fragment    {
 
     public static final String TAG = "HomeFragment";
 
+    //firebase auth, db and user declarations
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
-
-    private SearchView searchView = null;
-    private SearchView.OnQueryTextListener queryTextListener;
     FirebaseUser user;
 
+    //variable declarations
+    private SearchView searchView = null;
+    private SearchView.OnQueryTextListener queryTextListener;
     List<Program> arryProg;
     SearchView mySearch;
     RecyclerView rvcollges;
@@ -76,7 +77,7 @@ public class HomeFragment extends Fragment    {
     ProgramAdapter rvAdapter;
     ProgressLoader proload;
 
-    //AlgoliaKeys
+    //AlgoliaKeys declarations
     private String clientId;
     private String apikey;
 
@@ -86,18 +87,22 @@ public class HomeFragment extends Fragment    {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false); //inflating the view
 
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //firebase auth intializations
         mAuth = FirebaseAuth.getInstance();
         setHasOptionsMenu(true);
-        proload = new ProgressLoader(getActivity());
+
+        proload = new ProgressLoader(getActivity()); //progress loader
         proload.StartProgressLoader();
 
+        //Checking the user signedin or not
         user = mAuth.getCurrentUser();
         if (user != null) {
                     Log.i(TAG,"User Signed In");
@@ -111,14 +116,13 @@ public class HomeFragment extends Fragment    {
         super.onViewCreated(view, savedInstanceState);
         ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Home");
 
-        Log.i("inside","The home fragment");
-
+    //getting the reference for the programs and getting the results
         CollectionReference citiesRef = db.collection("Programs");
 
         Program p1 = new Program();
         arryProg = new ArrayList<Program>();
 
-       //Intializing the adapter
+       //Intializing the adapter of programs
         rvcollges = (RecyclerView) view.findViewById(R.id.rvcollegeView);
         rvcollges.setLayoutManager(new LinearLayoutManager(view.getContext()));
         rvAdapter = new ProgramAdapter(arryProg);
@@ -126,19 +130,19 @@ public class HomeFragment extends Fragment    {
 
         if(user!=null)
         {
-            userWishListIds =getUserWishListHomeFragment(user.getUid());
+            userWishListIds =getUserWishListHomeFragment(user.getUid());   //getting the user wishlist items
         }
 
         //Handling on click of each program from HomeFragment
         rvAdapter.setOnItemClickListe(new ProgramAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Log.i("item", String.valueOf(position));
+                Log.i("item", String.valueOf(position));  //Up on clicking the each program, the program data is bundled and send into the next activity.
                 if (user != null){
                     Bundle b = new Bundle();
                     b.putSerializable("ProgramData",arryProg.get(position));
                     b.putSerializable("wishListItems",userWishListIds);
-                    Intent intent = new Intent(getActivity(), ProgramDescriptioinActivity.class);
+                    Intent intent = new Intent(getActivity(), ProgramDescriptioinActivity.class);  //navigating to next activity
                     intent.putExtras(b);
                     startActivity(intent);
                 }
@@ -160,7 +164,11 @@ public class HomeFragment extends Fragment    {
 
     }
 
+
+    //the algolia keys are stored in the db with collection name algoliasyek.
     private void getAlgoliaConfig() {
+
+        //getting the document reference and extracting details
         final DocumentReference docRef = db.collection("AlgoliaSYEK").document("M5wmDvN0nfQlXVJ7YENS");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -169,7 +177,7 @@ public class HomeFragment extends Fragment    {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        clientId= (String) document.getData().get("clientID");
+                        clientId= (String) document.getData().get("clientID");  //client id and keys of algolia api.
                         apikey= (String) document.getData().get("apikey");
                     } else {
                         Log.d(TAG, "No such document");
@@ -185,6 +193,7 @@ public class HomeFragment extends Fragment    {
 
     private void getData()
     {
+        //This function will get the all the deatils in the program collection and inflate the recycle adapter.
         db.collection("Programs")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -201,7 +210,7 @@ public class HomeFragment extends Fragment    {
                                 arryProg.add(p1);
                           }
                             proload.stopProgresBar();
-                            rvAdapter.notifyDataSetChanged();
+                            rvAdapter.notifyDataSetChanged();  // updating the recyler adapter with the new data.
 
                         } else {
                            // Log.w(TAG, "Error getting documents.", task.getException());
@@ -215,15 +224,15 @@ public class HomeFragment extends Fragment    {
     //This method will send search request to algolia with keys and update the adapter with the response.
     private void queryDB(String qpram )
     {
-        Client client = new Client(clientId, apikey);
-        Index index = client.getIndex("programs");
-        Query query = new Query(qpram)
+        Client client = new Client(clientId, apikey);  //building the algolia client with clientid and key
+        Index index = client.getIndex("programs");  //getting refernce of index in algolia
+        Query query = new Query(qpram)    //preparing the query configurations, setting limit of 50.
                 .setHitsPerPage(50);
         index.searchAsync(query, new CompletionHandler() {
             @Override
             public void requestCompleted(JSONObject content, AlgoliaException error) {
                 try {
-                    JSONArray asd = content.getJSONArray("hits");
+                    JSONArray asd = content.getJSONArray("hits"); //parsing the response and assigning to local values.
                    // arryProg.clear();
                     List<String> li = new ArrayList<>();
                     Program p1 = new Program();
@@ -312,7 +321,7 @@ public class HomeFragment extends Fragment    {
                 }
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    Log.i("onQueryTextSubmit", query);
+                    Log.i("onQueryTextSubmit", query);   //if new query is submitted, again the data will load from algolia.
                     queryDB(query);
 
                     return true;
@@ -347,6 +356,7 @@ public class HomeFragment extends Fragment    {
         String asd = null ;
          final ArrayList<String> currentPrograms = new ArrayList<String>();
 
+         //getting document referecne for wishlist, based on the userid the wishlist will be retrived
         final DocumentReference docRef = db.collection("wishlist").document(userUniId);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -376,9 +386,5 @@ public class HomeFragment extends Fragment    {
         return currentPrograms;
 
     }
-
-
-
-
 
 }

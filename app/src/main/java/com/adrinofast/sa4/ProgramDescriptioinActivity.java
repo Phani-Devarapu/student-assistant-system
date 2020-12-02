@@ -36,6 +36,7 @@ import java.util.List;
 
 public class ProgramDescriptioinActivity extends AppCompatActivity {
 
+    //variables declarations
     Context context= this;
     ProgressLoader proload;
 
@@ -48,7 +49,7 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     FirebaseUser user;
 
-
+    //variables declarations
     Program pro;
     List<WishlistModel> wishModel;
     ArrayList<String> userWishList;
@@ -73,7 +74,7 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
 
         proload = new ProgressLoader(ProgramDescriptioinActivity.this);
 
-        //initiations
+        //initiations the variables and
         mAuth = FirebaseAuth.getInstance();
         college_image = findViewById(R.id.produDescriMainImage);
         fav_button = findViewById(R.id.add2WishListButton);
@@ -159,8 +160,8 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
         programLevel.setText(pro.getLevel());
         departmentName.setText(pro.getDepartment());
         facultyName.setText(pro.getFaculty());
-        degreeName.setText("Bachelor of Engineering (BEng)");
-        durationTime.setText("4-5 Years");
+        degreeName.setText(pro.getDegree());
+        durationTime.setText(pro.getDuration());
         startEndTermTime.setText(pro.getStartTerm());
         if(pro.getDescription()!=null)
         {
@@ -203,21 +204,6 @@ public class ProgramDescriptioinActivity extends AppCompatActivity {
         wishModel.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
         wishModel.setProgramId(hash_Set_programids);
 
-
-//        db.collection("wishlist").document(userUniqueId)
-//                .set(wishModel)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Log.d(TAG, "DocumentSnapshot successfully written!");
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w(TAG, "Error writing document", e);
-//                    }
-//                });
     }
 
     private WishlistModel getUserWishList(String userUniId)

@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignUpActivity extends AppCompatActivity {
 
+    public static final String TAG = "SignUpActivity";
+
     private FirebaseAuth mAuth;
     Button but_signup_cognito;
     Context context = this;

@@ -7,6 +7,8 @@ import androidx.appcompat.app.AlertDialog;
 
 public class ProgressLoader {
 
+
+
     Activity activity;
     AlertDialog dialog;
 

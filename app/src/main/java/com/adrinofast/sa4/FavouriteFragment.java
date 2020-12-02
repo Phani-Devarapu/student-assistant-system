@@ -41,12 +41,13 @@ public class FavouriteFragment extends Fragment {
     FirebaseUser user;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+
+    //variable declarations
     List<Program> arryProgWish;
     RecyclerView rvcollges;
     WishListAdapter rvAdapter;
     String userID;
     ArrayList<String> userWishList;
-
     Button loginButton_fav_fragment;
     TextView userMessageFF;
 
@@ -54,8 +55,11 @@ public class FavouriteFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.i("i am","here inside the fav fragemnt");
+
+        //Intializing the firebase AUth instance
         mAuth = FirebaseAuth.getInstance();
 
+        //Inflating the fragment layout
         View vv = inflater.inflate(R.layout.fragment_favourite, container, false);
         return inflater.inflate(R.layout.fragment_favourite, container, false);
     }
@@ -78,7 +82,7 @@ public class FavouriteFragment extends Fragment {
         rvAdapter = new WishListAdapter(arryProgWish);
         rvcollges.setAdapter(rvAdapter);
 
-
+       //Getting the current user info from firebase, else display text message
         user = mAuth.getCurrentUser();
         if (user != null) {
             userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -92,6 +96,7 @@ public class FavouriteFragment extends Fragment {
 
         }
 
+        //navigating to login screen
         loginButton_fav_fragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +112,7 @@ public class FavouriteFragment extends Fragment {
             public void onItemClick(int position) {
                 Log.i("item", String.valueOf(position));
                 if (user != null){
-                    Bundle b = new Bundle();
+                    Bundle b = new Bundle(); //prepating bundle and sendng the data to next line of activity
                     b.putSerializable("ProgramData",arryProgWish.get(position));
                     b.putSerializable("wishListItems",userWishList);
                     Intent intent = new Intent(getActivity(), ProgramDescriptioinActivity.class);
@@ -128,9 +133,13 @@ public class FavouriteFragment extends Fragment {
     //Getting the user wishlist data from the firebase.
  private void getWishListData()
  {
-     String userUniId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+     String userUniId = FirebaseAuth.getInstance().getCurrentUser().getUid(); //Getting current user id from firebase auth.
+
+     //Firebase firestore reference to the colelction with thr user id.
      final DocumentReference docRef = db.collection("wishlist").document(userUniId);
 
+
+     //getting data from the firebase firestore and handling success listner.
      docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
          @Override
          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -153,11 +162,13 @@ public class FavouriteFragment extends Fragment {
      });
  }
 
-//For each item in teh wishlist, getting the complete details of the program
+//For each item in the wishlist, getting the complete details of the program
  private void  getProgramDetails(WishlistModel ww1)
- {  userWishList= (ArrayList<String>) ww1.getProgramId();
+ {
+     userWishList= (ArrayList<String>) ww1.getProgramId();
 
 
+     //getting collection reference of programs in firebase firestore
      final CollectionReference docRefPrograms = db.collection("Programs");
 
      for(String str: ww1.getProgramId())
@@ -179,14 +190,14 @@ public class FavouriteFragment extends Fragment {
                          arryProgWish.add(p1);
 
                      }
-                     rvAdapter.notifyDataSetChanged();
+                     rvAdapter.notifyDataSetChanged();  // updating thr recycle view with the new data.
                  }
              }
          });
      }
  }
 
-    //Another way to get the wishlist details, but not using as of now.
+    //Another way to get the wishlist details, but not using as of now. This fucntion is designed for future use.
     private ArrayList<String> getUserWishListFavouriteFragment(String userUniId)
     {
         String asd = null ;

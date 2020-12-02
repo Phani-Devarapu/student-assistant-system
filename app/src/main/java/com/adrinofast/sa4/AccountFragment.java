@@ -24,6 +24,12 @@ import org.w3c.dom.Text;
 
 public class AccountFragment extends Fragment {
 
+//This Fragment is for displaying the inof of particular user.The detsils provided are
+//            username, email and underintrests
+
+
+    public static final String TAG = "AccountFragment";
+
     Button btn_signout;
     private FirebaseAuth mAuth;
     EditText text_loginChecker;
@@ -46,11 +52,15 @@ public class AccountFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //Intializing the Firebase Auth instance
         mAuth = FirebaseAuth.getInstance();
+
+        //Setting the title for app  bar
         ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Account");
 
+        //binding views and  variables
         matcardAccount = view.findViewById(R.id.con_lay_eachitemAccountFrag);
-
         accountFirstName = view.findViewById(R.id.account_FirstName);
         accountLastName = view.findViewById(R.id.account_LastName);
         accountEmail=view.findViewById(R.id.account_Email);
@@ -60,11 +70,9 @@ public class AccountFragment extends Fragment {
         loginButton_account_fragment= view.findViewById(R.id.but_login_Fragment_Account);
         loginButton_account_fragment.setVisibility(View.GONE);
         fab = view.findViewById(R.id.floatingActionButton_acnt_frag);
-
-
-
         btn_signout = view.findViewById(R.id.but_signout);
 
+        //Gettig the user info if the user is logged in, otherwise displaying message
             FirebaseUser user = mAuth.getCurrentUser();
             if (user != null) {
                 accountFirstName.setText(user.getDisplayName());
@@ -85,7 +93,7 @@ public class AccountFragment extends Fragment {
 
 
 
-
+      //Signout handler
         btn_signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,12 +118,14 @@ public class AccountFragment extends Fragment {
         });
     }
 
+    //This fucntion is called to redirect, update account activity
     private void goToRedirectActivity() {
         Intent intent = new Intent(getActivity(), acount_updateActivity.class);
 
         startActivity(intent);
     }
 
+    //This fucntion is called to redirect, login  activity
     private void LoginScreen() {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
@@ -124,6 +134,7 @@ public class AccountFragment extends Fragment {
 
     private void signOutuser()
     {
+        //Getting the firebase auth instance and invoking the signout user functionlity.
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
             mAuth.signOut();

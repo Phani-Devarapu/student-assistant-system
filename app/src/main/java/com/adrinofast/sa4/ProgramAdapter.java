@@ -32,14 +32,16 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 
 public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHolder>  {
+
+    public static final String TAG = "ProgramAdapter";
     Context context;
     private OnItemClickListener mListener;
+    List<Program> mPrograms;
+
+    //firebase storage isnatnce
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
-     List<Program> mPrograms;
-
-
-
+    //constructor for the adapter
     public ProgramAdapter(List<Program> programs ) {
 
         for(Program p :programs)
@@ -57,8 +59,6 @@ public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHol
     public void setOnItemClickListe(final OnItemClickListener listener) {
         mListener = listener;
     }
-
-
 
 
    public  class ViewHolder extends RecyclerView.ViewHolder {
@@ -86,6 +86,7 @@ public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHol
       matcard = itemView.findViewById(R.id.con_lay_eachitem);
 
 
+      //Onclick of the each item in the recyclerview, capturing the position in the view, to get the corresponding data
       matcard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -122,13 +123,11 @@ public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHol
         return viewHolder;
     }
 
+    //binding the view holders with the variables
     @Override
     public void onBindViewHolder(@NonNull final ProgramAdapter.ViewHolder holder, final int position) {
 
-
-
-        final Program program = mPrograms.get(position);
-
+       final Program program = mPrograms.get(position);
 
 
         // Set item views based on your views and data model
@@ -145,7 +144,7 @@ public class ProgramAdapter extends  RecyclerView.Adapter<ProgramAdapter.ViewHol
 
         Log.i("the program deatils are", program.toString());
 
-        StorageReference storageRef = storage.getReferenceFromUrl(program.getImageURL());
+        StorageReference storageRef = storage.getReferenceFromUrl(program.getImageURL());  //getting the images ref.. and loading the image with picasso.
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {

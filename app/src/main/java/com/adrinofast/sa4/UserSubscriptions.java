@@ -4,6 +4,8 @@ import java.util.List;
 
 public class UserSubscriptions {
 
+    public static final String TAG = "UserSubscriptions";
+
     private List<String> intrests;
 
     public UserSubscriptions() {

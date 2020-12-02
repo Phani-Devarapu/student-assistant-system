@@ -30,6 +30,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class UserIntrestActivity extends AppCompatActivity {
 
+
     Context context= this;
 
     private FirebaseAuth mAuth;
@@ -95,7 +96,7 @@ public class UserIntrestActivity extends AppCompatActivity {
         skip_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                proload.stopProgresBar();
+                proload.StartProgressLoader();
                 gotoHomeActivity();
             }
         });
@@ -109,33 +110,38 @@ public class UserIntrestActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 UserSubscriptions userSubs = documentSnapshot.toObject(UserSubscriptions.class);
-                Log.i("asaas",userSubs.toString());
+               // Log.i("asaas",userSubs.toString());
                 ArrayList<String> usSt= new ArrayList<>();
-                usSt = (ArrayList<String>) userSubs.getIntrests();
 
-                if(usSt.contains("Computer")){
-                    int_1.setChecked(true);
-                }
-                if(usSt.contains("Electrical"))
+                if(userSubs!=null)
                 {
-                    int_2.setChecked(true);
+                    usSt = (ArrayList<String>) userSubs.getIntrests();
+
+                    if(usSt.contains("Computer")){
+                        int_1.setChecked(true);
+                    }
+                    if(usSt.contains("Electrical"))
+                    {
+                        int_2.setChecked(true);
+                    }
+                    if(usSt.contains("Mechanical"))
+                    {
+                        int_3.setChecked(true);
+                    }
+                    if(usSt.contains("Bio"))
+                    {
+                        int_4.setChecked(true);
+                    }
+                    if(usSt.contains("Management"))
+                    {
+                        int_5.setChecked(true);
+                    }
+                    if(usSt.contains("Others"))
+                    {
+                        int_6.setChecked(true);
+                    }
                 }
-                if(usSt.contains("Mechanical"))
-                {
-                    int_3.setChecked(true);
-                }
-                if(usSt.contains("Bio"))
-                {
-                    int_4.setChecked(true);
-                }
-                if(usSt.contains("Management"))
-                {
-                    int_5.setChecked(true);
-                }
-                if(usSt.contains("Others"))
-                {
-                    int_6.setChecked(true);
-                }
+
 
 
             }

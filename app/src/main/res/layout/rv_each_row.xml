@@ -43,22 +43,22 @@
 
             <TextView
                 android:id="@+id/college_name"
-                android:layout_width="258dp"
-                android:layout_height="45dp"
+                android:layout_width="281dp"
+                android:layout_height="56dp"
                 android:layout_weight="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 app:layout_constraintBottom_toTopOf="@+id/program_dept"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.745"
+                app:layout_constraintHorizontal_bias="0.831"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.58" />
+                app:layout_constraintVertical_bias="0.4" />
 
             <TextView
                 android:id="@+id/program_dept"
-                android:layout_width="247dp"
-                android:layout_height="34dp"
+                android:layout_width="242dp"
+                android:layout_height="32dp"
                 android:layout_weight="1"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"

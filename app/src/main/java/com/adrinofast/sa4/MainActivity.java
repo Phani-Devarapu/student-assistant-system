@@ -22,8 +22,12 @@ import com.google.firebase.messaging.FirebaseMessaging;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
+
+    //firebase auth instance
     private FirebaseAuth mAuth;
     FirebaseUser user;
+
+    //declaring variables
     Context context = this;
     Button but_signup_cognito;
     ProgressLoader proload;
@@ -84,28 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    private void getFCMToken() {
-//
-//        FirebaseMessaging.getInstance().getToken()
-//                .addOnCompleteListener(new OnCompleteListener<String>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<String> task) {
-//                        if (!task.isSuccessful()) {
-//                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
-//                            return;
-//                        }
-//
-//                        // Get new FCM registration token
-//                        String token = task.getResult();
-//
-//                        // Log and toast
-//                        String msg = getString(R.string.msg_token_fmt, token);
-//                        Log.d(TAG, msg);
-//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//    }
-
+//this function will redirect the user to SignUpActivity
     private void  redirectToSignUp()
     {
         Intent intent = new Intent(context, SignUpActivity.class);
@@ -113,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //this function will redirect the usre to LoginActivity
     private void  redirectToLogin()
     {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -120,11 +104,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //this function will redirect the usre to HomeActivity, skipping the login
+
     private void skipLogin()
     {
-        proload.StartProgressLoader();
+        proload.StartProgressLoader();  //progress loader start
         Intent intent = new Intent(context, HomeActivity.class);
-        proload.stopProgresBar();
+        proload.stopProgresBar();  //progress loader stop
         startActivity(intent);
     }
 }

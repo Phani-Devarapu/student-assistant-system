@@ -18,6 +18,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
+
+    public static final String TAG = "HomeActivity";
+
+    //declaring thr firebase
     private FirebaseAuth mAuth;
 
     @Override
@@ -26,14 +30,19 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
         setContentView(R.layout.activity_home);
         //setSupportActionBar(findViewById(R.id.topAppBar));
 
+        //Intializing the firebase auth instance
         mAuth = FirebaseAuth.getInstance();
+
+        //setting the title for the app bar
               Toolbar actionBar = (Toolbar)findViewById(R.id.topAppBar);
         setSupportActionBar(actionBar);
         getSupportActionBar().setTitle("Home");
 
+        //binding bottom nav bar to the varible
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
+        //stating with the Home buttom in the bottom nav bar
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new HomeFragment()).commit();
@@ -41,7 +50,7 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
 
     }
 
-    //Bottom navigation bar handler
+    //Bottom navigation bar handler, depending on the selection the corresponding fragment will be loaded.
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -49,14 +58,13 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
                     Fragment selectedFragment = null;
                     switch (item.getItemId()) {
                         case R.id.bot_nav_home:
-                            selectedFragment = new HomeFragment();
+                            selectedFragment = new HomeFragment();  //home fragment click handler
                             break;
                         case R.id.bot_nav_fav:
-                            Log.i("i am","item cliekced");
-                            selectedFragment = new FavouriteFragment();
+                            selectedFragment = new FavouriteFragment();   //favourite fragment click handler
                             break;
                         case R.id.bot_nav_prof:
-                            selectedFragment = new AccountFragment();
+                            selectedFragment = new AccountFragment();   //account fragment click handler
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -88,10 +96,3 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
 
 }
 
-
-
-
-//
-//<color name="colorPrimary">#1a2b5d</color>
-//<color name="colorAccent">#ff009f</color>
-//<color name="colorPrimaryDark">#0E7C7F</color>

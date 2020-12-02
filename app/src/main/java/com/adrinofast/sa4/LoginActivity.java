@@ -21,11 +21,15 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public static final String TAG = "LoginActivity";
+
+    //declaring the firebase auth variable
     private FirebaseAuth mAuth;
+
+    //declaring the varaibles
     Button but_login;
     Button but_forpas;
     Context context = this;
-
     EditText text_loginName;
     EditText text_loginPass;
 
@@ -35,11 +39,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
 
+        //binding the variable with the view elements.
         text_loginName=findViewById(R.id.login_username);
         text_loginPass = findViewById(R.id.login_password);
         but_login = findViewById(R.id.but_login);
         but_forpas =findViewById(R.id.but_forgotPas);
 
+        //intializing the firebase auth instance.
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -62,20 +68,20 @@ public class LoginActivity extends AppCompatActivity {
   //login with email and password
     private void login()
     {
-        String  email = String.valueOf(text_loginName.getText());
+        String  email = String.valueOf(text_loginName.getText()); //getting details of email & password from the edittext
         String password = String.valueOf(text_loginPass.getText());
         Log.i("The mail is" , email);
         Log.i("the pass is ", password);
 
         if(email.length()>5 && password.length()>5)
         {
-            mAuth.signInWithEmailAndPassword(email, password)
+            mAuth.signInWithEmailAndPassword(email, password)    //involking signin method with firebase auth instance.
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
 
-                                FirebaseUser user = mAuth.getCurrentUser();
+                                FirebaseUser user = mAuth.getCurrentUser();  //if logged in navihate to the home activity
                                 Intent intent = new Intent(context,HomeActivity.class);
                                 startActivity(intent);
 
@@ -97,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-
+//thsi megthod will navigate the user to forgot password activity.
 
     private  void forgotpassword()
     {

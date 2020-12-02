@@ -27,6 +27,8 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class WishListAdapter extends  RecyclerView.Adapter<WishListAdapter.ViewHolder>{
 
+    public static final String TAG = "WishListAdapter";
+
     Context context;
     private WishListAdapter.OnItemClickListener mListener;
     FirebaseStorage storage = FirebaseStorage.getInstance();

@@ -29,6 +29,8 @@ public class acount_updateActivity extends AppCompatActivity {
     public static final String TAG = "acount_updateActivity";
 
     private FirebaseAuth mAuth;
+
+
     Context context = this;
     EditText accountFirstNameUA;
     EditText accountLastNameUA;
@@ -42,12 +44,19 @@ public class acount_updateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_acount_update);
-        accountFirstNameUA = findViewById(R.id.account_FirstNameUA);
 
+
+        //binding views and  variables
+        accountFirstNameUA = findViewById(R.id.account_FirstNameUA);
         accountEmailUA=findViewById(R.id.account_EmailUA);
         updateUserIntrestsDeatils=findViewById(R.id.but_update_intrestsUA);
+        updateUserDeatils= findViewById(R.id.but_updateUA);
 
+
+        //Intializing the Firebase Auth instance
         mAuth = FirebaseAuth.getInstance();
+
+        //Gettig the user info if the user is logged in.
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             accountFirstNameUA.setText(user.getDisplayName());
@@ -55,8 +64,8 @@ public class acount_updateActivity extends AppCompatActivity {
 
         }
 
-        updateUserDeatils= findViewById(R.id.but_updateUA);
 
+       //this fucntion will update the new deatils.
         updateUserDeatils.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +73,8 @@ public class acount_updateActivity extends AppCompatActivity {
                 updateDetails();
             }
         });
+
+        //this fucntion will navigate the user to UserIntrestActivity, to update the intrests.
         updateUserIntrestsDeatils.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,12 +88,15 @@ public class acount_updateActivity extends AppCompatActivity {
 
     private void updateDetails() {
 
+        //extracting the details from edit texts
         String name = accountFirstNameUA.getText().toString();
         String emailUpdated= accountEmailUA.getText().toString();
 
-
+        //getting the current user instance.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+
+        //Building the update request with the updated data
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(name)
                 .build();
@@ -97,6 +111,7 @@ public class acount_updateActivity extends AppCompatActivity {
                     }
                 });
 
+        //Checking the new email is valid or not by using regex expression
         if(emailUpdated.matches(emailPattern))
         {
             user.updateEmail("user@example.com")
@@ -109,6 +124,7 @@ public class acount_updateActivity extends AppCompatActivity {
                         }
                     });
 
+            //Sending mails to the new email for verification.
             user.sendEmailVerification()
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
